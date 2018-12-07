@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Typography from '@material-ui/core/Typography';
 import Snapshot from './Snapshot';
-import Image from './Image';
+import Checkpoint from './Checkpoint';
 
 describe('Snapshot', () => {
 
@@ -22,7 +22,7 @@ describe('Snapshot', () => {
     const snapshot = shallow(<Snapshot snapshot={data}/>)
 
     expect(snapshot.find(Typography).props().children).toEqual('snapshot id')
-    expect(snapshot.find(Image).length).toEqual(0)
+    expect(snapshot.find(Checkpoint).length).toEqual(0)
   });
 
   it('lists images', () => {
@@ -35,11 +35,11 @@ describe('Snapshot', () => {
     }
     var snapshot = shallow(<Snapshot snapshot={data}/>)
 
-    expect(snapshot.find(Image).length).toEqual(2)
+    expect(snapshot.find(Checkpoint).length).toEqual(2)
 
     // Check the empty case.
     data.images = []
     snapshot = shallow(<Snapshot snapshot={data}/>)
-    expect(snapshot.find(Image).length).toEqual(0)
+    expect(snapshot.find(Checkpoint).length).toEqual(0)
   });
 });

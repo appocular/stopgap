@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-class Image extends Component {
+class Checkpoint extends Component {
   render() {
     return (
         <Typography variant="headline">
@@ -11,4 +11,4 @@ class Image extends Component {
   }
 }
 
-export default Image;
+export default Checkpoint;
