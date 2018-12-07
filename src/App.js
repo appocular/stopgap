@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Commit from './components/Commit';
+import Typography from '@material-ui/core/Typography';
 
 class App extends Component {
   constructor(props) {
@@ -16,26 +17,30 @@ class App extends Component {
   }
 
   // https://www.robinwieruch.de/react-fetching-data/
-  componentDidMount() {
-    fetch('http://assessor.appocular.docker/commit/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', {
-      crossDomain:true,
-    })
-      .then(response => response.json())
-      .then(data => this.setState({commit: data, loaded: true }))
-    // @todo better error handling.
-      .catch(error => this.setState({error: true }))
-  }
+  async componentDidMount() {
+    try {
+      const response = await fetch('http://assessor.appocular.docker/commit/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', {
+        crossDomain:true,
+      })
+      if (!response.ok) {
+        throw new Error("Network error")
+      }
+      response.json().then(data => this.setState({commit: data, loaded: true }))
+    } catch (error) {
+      this.setState({error: true })
+    }
+  };
 
 
   render() {
     if (this.state.error) {
-      return <p>Error loading.</p>
+      return <Typography variant="headline" color="error">Error loading.</Typography>
     }
     if (!this.state.loaded) {
-      return <p>Loading...</p>
+      return <Typography variant="headline">Loading...</Typography>
     }
     return (
-        <Commit commit={this.state.commit}/>
+      <Commit commit={this.state.commit}/>
     );
   }
 }
