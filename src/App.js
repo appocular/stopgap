@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Commit from './components/Commit';
+import Snapshot from './components/Snapshot';
 import Typography from '@material-ui/core/Typography';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      commit: {
+      snapshot: {
         'sha': 'none',
         'images': []
       },
@@ -25,7 +25,7 @@ class App extends Component {
       if (!response.ok) {
         throw new Error("Network error")
       }
-      response.json().then(data => this.setState({commit: data, loaded: true }))
+      response.json().then(data => this.setState({snapshot: data, loaded: true }))
     } catch (error) {
       this.setState({error: true })
     }
@@ -40,7 +40,7 @@ class App extends Component {
       return <Typography variant="headline">Loading...</Typography>
     }
     return (
-      <Commit commit={this.state.commit}/>
+      <Snapshot snapshot={this.state.snapshot}/>
     );
   }
 }

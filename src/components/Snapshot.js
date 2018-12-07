@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Image from './Image'
-class Commit extends Component {
+
+class Snapshot extends Component {
   render() {
 
-    const images = this.props.commit.images.map((image, index) => <Image key={index.toString()} name={image.name}/>)
+    const images = this.props.snapshot.images.map((image, index) => <Image key={index.toString()} name={image.name}/>)
 
     return (
       <Grid >
         <Typography variant="headline">
-          {this.props.commit.sha}
+          {this.props.snapshot.sha}
         </Typography>
         {images}
       </Grid>
@@ -18,4 +19,4 @@ class Commit extends Component {
   }
 }
 
-export default Commit;
+export default Snapshot;

@@ -24,11 +24,11 @@ describe('App', () => {
 
   it('fetches commit data from API', async () => {
     const wrapper = await shallow(<App />);
-    expect(wrapper.state().commit.sha).toEqual('none')
+    expect(wrapper.state().snapshot.sha).toEqual('none')
     expect(wrapper.state().loaded).toEqual(false)
 
     await wrapper.update()
-    expect(wrapper.state().commit.sha).toEqual('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+    expect(wrapper.state().snapshot.sha).toEqual('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
     expect(wrapper.state().loaded).toEqual(true)
   });
 
