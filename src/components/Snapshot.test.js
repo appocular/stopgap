@@ -8,16 +8,16 @@ describe('Snapshot', () => {
 
   it('renders without crashing', () => {
     const data = {
-      sha: "snapshot id",
-      images: []
+      id: "snapshot id",
+      checkpoints: []
     }
     shallow(<Snapshot snapshot={data}/>)
   });
 
   it('shows the snapshot id', () => {
     const data = {
-      sha: "snapshot id",
-      images: []
+      id: "snapshot id",
+      checkpoints: []
     }
     const snapshot = shallow(<Snapshot snapshot={data}/>)
 
@@ -25,10 +25,10 @@ describe('Snapshot', () => {
     expect(snapshot.find(Checkpoint).length).toEqual(0)
   });
 
-  it('lists images', () => {
+  it('lists checkpoints', () => {
     const data = {
-      sha: "snapshot id",
-      images: [
+      id: "snapshot id",
+      checkpoints: [
         {name: "image 1"},
         {name: "image 2"},
       ]
@@ -38,7 +38,7 @@ describe('Snapshot', () => {
     expect(snapshot.find(Checkpoint).length).toEqual(2)
 
     // Check the empty case.
-    data.images = []
+    data.checkpoints = []
     snapshot = shallow(<Snapshot snapshot={data}/>)
     expect(snapshot.find(Checkpoint).length).toEqual(0)
   });

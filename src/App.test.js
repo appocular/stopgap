@@ -10,7 +10,7 @@ window.fetch = jest.fn().mockImplementation(() => ({
   ok: true,
   json: () => new Promise((resolve, reject) => {
     resolve({
-      sha: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+      sha: 'some test id',
       images: []
     })
   })
@@ -28,7 +28,7 @@ describe('App', () => {
     expect(wrapper.state().loaded).toEqual(false)
 
     await wrapper.update()
-    expect(wrapper.state().snapshot.sha).toEqual('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+    expect(wrapper.state().snapshot.sha).toEqual('some test id')
     expect(wrapper.state().loaded).toEqual(true)
   });
 

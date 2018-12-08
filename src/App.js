@@ -19,7 +19,7 @@ class App extends Component {
   // https://www.robinwieruch.de/react-fetching-data/
   async componentDidMount() {
     try {
-      const response = await fetch('http://assessor.appocular.docker/commit/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', {
+      const response = await fetch('http://assessor.appocular.docker/snapshot/test-snapshot', {
         crossDomain:true,
       })
       if (!response.ok) {

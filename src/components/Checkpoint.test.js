@@ -9,7 +9,7 @@ describe('Checkpoint', () => {
     shallow(<Checkpoint name="test"/>)
   });
 
-  it('shows the image name', () => {
+  it('shows the checkpoint name', () => {
     const commit = shallow(<Checkpoint name="Checkpoint name"/>)
 
     expect(commit.find(Typography).props().children).toEqual('Checkpoint name')
