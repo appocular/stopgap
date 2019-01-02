@@ -6,7 +6,10 @@ import Checkpoint from './Checkpoint'
 class Snapshot extends Component {
   render() {
 
-    const checkpoints = this.props.snapshot.checkpoints.map((checkpoint, index) => <Checkpoint key={index.toString()} name={checkpoint.name}/>)
+    const checkpoints = this.props.snapshot.checkpoints.map((checkpoint, index) => <Checkpoint
+                                                                                     key={index.toString()}
+                                                                                     checkpoint={checkpoint}
+                                                                                   />)
 
     return (
       <Grid >
