@@ -12,11 +12,17 @@ class Snapshot extends Component {
                                                                                    />)
 
     return (
-      <Grid >
+      <Grid>
         <Typography variant="headline">
           {this.props.snapshot.id}
         </Typography>
-        {checkpoints}
+        <Grid container>
+          {checkpoints.map(item => (
+            <Grid item>
+              {item}
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     );
   }

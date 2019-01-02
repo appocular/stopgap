@@ -1,17 +1,64 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import Modal from '@material-ui/core/Modal';
+import { withStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+
+const styles = theme => ({
+  card: {
+    maxWidth: 300,
+  },
+
+  image: {
+    width: '50%',
+  }
+});
 
 class Checkpoint extends Component {
+  state = {
+    open: false,
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
+    const { classes } = this.props;
     const img_src = 'http://assessor.appocular.docker/checkpoint/' + this.props.checkpoint.id + '/image'
 
     return (
-      <Typography variant="headline">
-        {this.props.checkpoint.name}
-        <img src={img_src} width="300" />
-      </Typography>
+      <Card className={classes.card}>
+        <CardActionArea onClick={this.handleOpen}>
+          <CardHeader title={this.props.checkpoint.name} />
+          <CardMedia component="img" image={img_src} />
+        </CardActionArea>
+        <Modal
+          open={this.state.open}
+          onClose={this.handleClose}
+        >
+          <Card>
+            <CardHeader
+              action={
+                <IconButton  onClick={this.handleClose}>
+                  <CloseIcon/>
+                </IconButton>
+              }
+              title={this.props.checkpoint.name} />
+            <CardMedia className={classes.image} component="img" image={img_src} />
+          </Card>
+        </Modal>
+      </Card>
     );
   }
 }
 
-export default Checkpoint;
+export default withStyles(styles)(Checkpoint);
