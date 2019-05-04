@@ -7,15 +7,12 @@ import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   card: {
     maxWidth: 300,
   },
-
-  image: {
-    width: '50%',
-  }
 });
 
 class Checkpoint extends Component {
@@ -34,6 +31,9 @@ class Checkpoint extends Component {
   render() {
     const { classes } = this.props;
     const img_src = process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.image_sha
+    const baseline_src = this.props.checkpoint.baseline_sha ?
+          process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.baseline_sha :
+          null;
 
     return (
       <Card className={classes.card}>
@@ -53,7 +53,14 @@ class Checkpoint extends Component {
                 </IconButton>
               }
               title={this.props.checkpoint.name} />
-            <CardMedia className={classes.image} component="img" image={img_src} />
+            <Grid container>
+              <Grid item xs={6}><CardMedia component="img" image={img_src} /></Grid>
+              <Grid item xs={6}>
+                { baseline_src &&
+                  <CardMedia component="img" image={baseline_src} />
+                }
+              </Grid>
+            </Grid>
           </Card>
         </Modal>
       </Card>
