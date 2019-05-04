@@ -16,35 +16,6 @@ global.fetch = jest.fn().mockImplementation(() => ({
   })
 }))
 
-// window.fetch = jest.fn().mockImplementation(() => {
-//   console.log('mock fetch');
-//   return Promise.resolve({
-//     status: 200,
-//     ok: true,
-//       json: () => new Promise((resolve, reject) => {
-//         resolve({
-//           sha: 'some test id',
-//           images: []
-//         })
-//       })
-//   })}
-//                                            );
-
-// window.fetch = function () {
-
-//   console.log('mock fetch');
-//   return Promise.resolve({
-//     status: 200,
-//     ok: true,
-//       json: () => new Promise((resolve, reject) => {
-//         resolve({
-//           sha: 'some test id',
-//           images: []
-//         })
-//       })
-//   })}
-
-
 describe('SnapshotLoader', () => {
 
   it('renders without crashing', async () => {
@@ -67,7 +38,7 @@ describe('SnapshotLoader', () => {
 
   it('renders an error on API error', async () => {
     // Make fetch return an error.
-    window.fetch = jest.fn().mockResolvedValue({
+    window.fetch.mockResolvedValue({
       status: 500,
       ok: false,
     })
