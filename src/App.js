@@ -1,48 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
-import Snapshot from './components/Snapshot';
-import Typography from '@material-ui/core/Typography';
+import SnapshotLoader from './components/SnapshotLoader';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      snapshot: {
-        'sha': 'none',
-        'images': []
-      },
-      loaded: false,
-      error: false
-    }
-  }
-
-  // https://www.robinwieruch.de/react-fetching-data/
-  async componentDidMount() {
-    try {
-      const response = await fetch('http://assessor.appocular.docker/snapshot/test-snapshot', {
-        crossDomain:true,
-      })
-      if (!response.ok) {
-        throw new Error("Network error")
-      }
-      response.json().then(data => this.setState({snapshot: data, loaded: true }))
-    } catch (error) {
-      this.setState({error: true })
-    }
-  };
-
-
   render() {
-    if (this.state.error) {
-      return <Typography variant="headline" color="error">Error loading.</Typography>
-    }
-    if (!this.state.loaded) {
-      return <Typography variant="headline">Loading...</Typography>
-    }
     return (
-      <Snapshot snapshot={this.state.snapshot}/>
+      <Router>
+        <Switch>
+          <Route path="/:snapshot_id" component={SnapshotLoader} />
+          <Route path="/" exact component={Message} />
+        </Switch>
+      </Router>
     );
   }
+}
+
+function Message() {
+  return "You shouldn't be here...";
 }
 
 export default App;
