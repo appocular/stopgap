@@ -33,7 +33,7 @@ class Checkpoint extends Component {
 
   render() {
     const { classes } = this.props;
-    const img_src = process.env.REACT_APP_APPOCULAR_URL + '/checkpoint/' + this.props.checkpoint.id + '/image'
+    const img_src = process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.image_sha
 
     return (
       <Card className={classes.card}>
