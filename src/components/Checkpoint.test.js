@@ -1,18 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Typography from '@material-ui/core/Typography';
+import { mount } from 'enzyme';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardHeader from '@material-ui/core/CardHeader';
 import Checkpoint from './Checkpoint';
 
 describe('Checkpoint', () => {
 
   it('renders without crashing', () => {
-    shallow(<Checkpoint name="test"/>)
+    mount(<Checkpoint checkpoint={{name: "test", id: 1}} />)
   });
 
   it('shows the checkpoint name', () => {
-    const commit = shallow(<Checkpoint name="Checkpoint name"/>)
+    const checkpoints = mount(<Checkpoint checkpoint={{name: "Checkpoint name", id: 1}} />)
 
-    expect(commit.find(Typography).props().children).toEqual('Checkpoint name')
+    expect(checkpoints.find(Card).find(CardActionArea).find(CardHeader).props().title).toEqual('Checkpoint name')
   });
 
 });

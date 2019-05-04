@@ -33,7 +33,7 @@ class Checkpoint extends Component {
 
   render() {
     const { classes } = this.props;
-    const img_src = 'http://assessor.appocular.docker/checkpoint/' + this.props.checkpoint.id + '/image'
+    const img_src = process.env.REACT_APP_APPOCULAR_URL + '/checkpoint/' + this.props.checkpoint.id + '/image'
 
     return (
       <Card className={classes.card}>
@@ -48,7 +48,7 @@ class Checkpoint extends Component {
           <Card>
             <CardHeader
               action={
-                <IconButton  onClick={this.handleClose}>
+                <IconButton onClick={this.handleClose}>
                   <CloseIcon/>
                 </IconButton>
               }
