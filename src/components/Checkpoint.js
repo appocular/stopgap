@@ -34,6 +34,9 @@ class Checkpoint extends Component {
     const baseline_src = this.props.checkpoint.baseline_sha ?
           process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.baseline_sha :
           null;
+    const diff_src = this.props.checkpoint.diff_sha ?
+          process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.diff_sha :
+          null;
 
     return (
       <Card className={classes.card}>
@@ -60,6 +63,12 @@ class Checkpoint extends Component {
                   <CardMedia component="img" image={baseline_src} />
                 }
               </Grid>
+
+              { diff_src &&
+                <Grid item xs={6}>
+                  <CardMedia component="img" image={diff_src} />
+                </Grid>
+              }
             </Grid>
           </Card>
         </Modal>
