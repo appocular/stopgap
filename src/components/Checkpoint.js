@@ -3,7 +3,9 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +14,14 @@ import Grid from '@material-ui/core/Grid';
 const styles = theme => ({
   card: {
     maxWidth: 300,
+    maxHeight: 200,
   },
+
+  title: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 });
 
 class Checkpoint extends Component {
@@ -44,34 +53,36 @@ class Checkpoint extends Component {
           <CardHeader title={this.props.checkpoint.name} />
           <CardMedia component="img" image={img_src} />
         </CardActionArea>
-        <Modal
-          open={this.state.open}
-          onClose={this.handleClose}
+        <Dialog fullScreen
+                open={this.state.open}
+                onClose={this.handleClose}
+                scroll="paper"
         >
-          <Card>
-            <CardHeader
-              action={
-                <IconButton onClick={this.handleClose}>
-                  <CloseIcon/>
-                </IconButton>
-              }
-              title={this.props.checkpoint.name} />
-            <Grid container>
-              <Grid item xs={6}><CardMedia component="img" image={img_src} /></Grid>
-              <Grid item xs={6}>
+          <div className={classes.title}>
+            <DialogTitle className={classes.title} >
+              {this.props.checkpoint.name}
+            </DialogTitle>
+            <IconButton onClick={this.handleClose}>
+              <CloseIcon/>
+            </IconButton>
+          </div>
+          <DialogContent>
+            <Grid container direction="row">
+              <Grid item xs={4}><CardMedia component="img" image={img_src} /></Grid>
+              <Grid item xs={4}>
                 { baseline_src &&
                   <CardMedia component="img" image={baseline_src} />
                 }
               </Grid>
 
               { diff_src &&
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <CardMedia component="img" image={diff_src} />
                 </Grid>
               }
             </Grid>
-          </Card>
-        </Modal>
+          </DialogContent>
+        </Dialog>
       </Card>
     );
   }
