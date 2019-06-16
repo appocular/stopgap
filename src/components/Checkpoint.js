@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
   card: {
@@ -21,6 +22,18 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+
+  unknown: {
+    backgroundColor: 'grey',
+  },
+
+  approved: {
+    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+  },
+
+  rejected: {
+    backgroundColor: 'rgba(255, 0, 0, 0.1)',
   }
 });
 
@@ -49,8 +62,8 @@ class Checkpoint extends Component {
 
     return (
       <Card className={classes.card}>
-        <CardActionArea onClick={this.handleOpen}>
-          <CardHeader title={this.props.checkpoint.name} />
+        <CardActionArea onClick={this.handleOpen} className={classes[this.props.checkpoint.status]}>
+          <CardHeader title={this.props.checkpoint.name}/>
           <CardMedia component="img" image={img_src} />
         </CardActionArea>
         <Dialog fullScreen
@@ -61,6 +74,7 @@ class Checkpoint extends Component {
           <div className={classes.title}>
             <DialogTitle className={classes.title} >
               {this.props.checkpoint.name}
+              <Chip label={this.props.checkpoint.status}/>
             </DialogTitle>
             <IconButton onClick={this.handleClose}>
               <CloseIcon/>
