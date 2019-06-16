@@ -28,6 +28,7 @@ class Snapshot extends Component {
         <Typography variant="headline">
           {this.props.snapshot.id}
           <Chip icon={status_icon} label={this.props.snapshot.status}/>
+          <Chip label={this.props.snapshot.run_status}/>
         </Typography>
         <Grid container>
           {this.props.snapshot.checkpoints.map((checkpoint, index) => (
