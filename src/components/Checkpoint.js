@@ -52,19 +52,14 @@ class Checkpoint extends Component {
 
   render() {
     const { classes } = this.props;
-    const img_src = process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.image_sha
-    const baseline_src = this.props.checkpoint.baseline_sha ?
-          process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.baseline_sha :
-          null;
-    const diff_src = this.props.checkpoint.diff_sha ?
-          process.env.REACT_APP_APPOCULAR_URL + '/image/' + this.props.checkpoint.diff_sha :
-          null;
 
     return (
       <Card className={classes.card}>
         <CardActionArea onClick={this.handleOpen} className={classes[this.props.checkpoint.status]}>
           <CardHeader title={this.props.checkpoint.name}/>
-          <CardMedia component="img" image={img_src} />
+          { this.props.checkpoint.image_url &&
+            <CardMedia component="img" image={this.props.checkpoint.image_url} />
+          }
         </CardActionArea>
         <Dialog fullScreen
                 open={this.state.open}
@@ -82,16 +77,20 @@ class Checkpoint extends Component {
           </div>
           <DialogContent>
             <Grid container direction="row">
-              <Grid item xs={4}><CardMedia component="img" image={img_src} /></Grid>
               <Grid item xs={4}>
-                { baseline_src &&
-                  <CardMedia component="img" image={baseline_src} />
+                { this.props.checkpoint.image_url &&
+                  <CardMedia component="img" image={this.props.checkpoint.image_url} />
+                }
+              </Grid>
+              <Grid item xs={4}>
+                { this.props.checkpoint.baseline_url &&
+                  <CardMedia component="img" image={this.props.checkpoint.baseline_url} />
                 }
               </Grid>
 
-              { diff_src &&
+              { this.props.checkpoint.diff_url &&
                 <Grid item xs={4}>
-                  <CardMedia component="img" image={diff_src} />
+                  <CardMedia component="img" image={this.props.checkpoint.diff_url} />
                 </Grid>
               }
             </Grid>

@@ -10,8 +10,8 @@ global.fetch = jest.fn().mockImplementation(() => ({
   ok: true,
   json: () => new Promise((resolve, reject) => {
     resolve({
-      sha: 'some test id',
-      images: []
+      id: 'some test id',
+      checkpoints: []
     })
   })
 }))
@@ -25,14 +25,14 @@ describe('SnapshotLoader', () => {
   it('fetches commit data from API', async () => {
     // Create component without triggering componentDidMount.
     const wrapper = await shallow(<SnapshotLoader match={{params: {id: 123}}}/>);
-    expect(wrapper.state().snapshot.sha).toEqual('none')
+    expect(wrapper.state().snapshot).toEqual(null)
     expect(wrapper.state().loaded).toEqual(false)
 
     // Trigger componentDidMount, and check that fetch was called.
     await Promise.resolve();
 
     expect(wrapper.state().error).toEqual(false)
-    expect(wrapper.state().snapshot.sha).toEqual('some test id')
+    expect(wrapper.state().snapshot.id).toEqual('some test id')
     expect(wrapper.state().loaded).toEqual(true)
   });
 

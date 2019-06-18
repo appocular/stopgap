@@ -6,10 +6,7 @@ class SnapshotLoader extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      snapshot: {
-        'sha': 'none',
-        'images': []
-      },
+      snapshot: null,
       loaded: false,
       error: false
     }
