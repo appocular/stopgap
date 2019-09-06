@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Snapshot from './Snapshot';
 
-import { Appocular } from '../Appocular'
+import Appocular  from '../Appocular'
 
 class SnapshotLoader extends Component {
   constructor(props) {
@@ -22,7 +22,6 @@ class SnapshotLoader extends Component {
     else {
       this.setState({error: true })
     }
-    console.log(snapshot)
   };
 
   render() {

@@ -8,9 +8,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
+import Appocular from '../Appocular';
 
 const styles = theme => ({
   card: {
@@ -40,6 +43,7 @@ const styles = theme => ({
 class Checkpoint extends Component {
   state = {
     open: false,
+    checkpoint: this.props.checkpoint
   };
 
   handleOpen = () => {
@@ -50,26 +54,59 @@ class Checkpoint extends Component {
     this.setState({ open: false });
   };
 
+  handleApprove = async () =>  {
+    const checkpoint = await Appocular.checkpointAction(this.state.checkpoint, 'approve')
+    this.setState({checkpoint: checkpoint})
+  };
+
+  handleReject = async () =>  {
+    const checkpoint = await Appocular.checkpointAction(this.state.checkpoint, 'reject')
+    this.setState({checkpoint: checkpoint})
+  };
+
+  handleIgnore = async () =>  {
+    const checkpoint = await Appocular.checkpointAction(this.state.checkpoint, 'ignore')
+    this.setState({checkpoint: checkpoint})
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
+    const { open, checkpoint } = this.state
 
     return (
       <Card className={classes.card}>
-        <CardActionArea onClick={this.handleOpen} className={classes[this.props.checkpoint.status]}>
-          <CardHeader title={this.props.checkpoint.name}/>
-          { this.props.checkpoint.image_url &&
-            <CardMedia component="img" image={this.props.checkpoint.image_url} />
+        <CardActionArea onClick={this.handleOpen} className={classes[checkpoint.status]}>
+          <CardHeader title={checkpoint.name}/>
+          { checkpoint.image_url &&
+            <CardMedia component="img" image={checkpoint.image_url} />
           }
         </CardActionArea>
         <Dialog fullScreen
-                open={this.state.open}
+                open={open}
                 onClose={this.handleClose}
                 scroll="paper"
         >
           <div className={classes.title}>
             <DialogTitle className={classes.title} >
-              {this.props.checkpoint.name}
-              <Chip label={this.props.checkpoint.status}/>
+              {checkpoint.name}
+              {checkpoint.actions.approve ?
+               <IconButton onClick={this.handleApprove}>
+                 <CheckIcon/>
+               </IconButton> : ''
+              }
+              {checkpoint.actions.reject ?
+               <IconButton onClick={this.handleReject}>
+                 <CloseIcon/>
+               </IconButton>
+               : ''
+              }
+              {checkpoint.actions.ignore ?
+               <IconButton onClick={this.handleIgnore}>
+                 <MoreHorizIcon/>
+               </IconButton>
+               : ''
+              }
+              <Chip label={checkpoint.status}/>
             </DialogTitle>
             <IconButton onClick={this.handleClose}>
               <CloseIcon/>
@@ -78,23 +115,23 @@ class Checkpoint extends Component {
           <DialogContent>
             <Grid container direction="row">
               <Grid item xs={4}>
-                { this.props.checkpoint.image_url &&
-                  <CardMedia component="img" image={this.props.checkpoint.image_url} />
+                { checkpoint.image_url &&
+                  <CardMedia component="img" image={checkpoint.image_url} />
                 }
               </Grid>
               <Grid item xs={4}>
-                { this.props.checkpoint.baseline_url &&
-                  <CardMedia component="img" image={this.props.checkpoint.baseline_url} />
+                { checkpoint.baseline_url &&
+                  <CardMedia component="img" image={checkpoint.baseline_url} />
                 }
               </Grid>
 
-              { this.props.checkpoint.diff_url &&
+              { checkpoint.diff_url &&
                 <Grid item xs={4}>
-                  <CardMedia component="img" image={this.props.checkpoint.diff_url} />
+                  <CardMedia component="img" image={checkpoint.diff_url} />
                 </Grid>
               }
             </Grid>
-          </DialogContent>
+            </DialogContent>
         </Dialog>
       </Card>
     );
