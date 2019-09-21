@@ -2,41 +2,31 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Snapshot from './Snapshot';
 
-import Appocular  from '../Appocular'
+import { connect } from '../overmind'
 
 class SnapshotLoader extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      snapshot: null,
-      loaded: false,
-      error: false
-    }
   }
 
   async componentDidMount() {
-    const snapshot = await Appocular.getSnapshotById(this.props.match.params.snapshot_id)
-    if (snapshot) {
-      this.setState({snapshot: snapshot, loaded: true})
-    }
-    else {
-      this.setState({error: true })
-    }
+    this.props.overmind.actions.loadSnapshot(this.props.match.params.snapshot_id)
   };
 
   render() {
-    if (this.state.error) {
+    const { overmind } = this.props
+    if (overmind.state.snapshotLoaded && !overmind.state.snapshot) {
       return <Typography variant="headline" color="error">Error loading.</Typography>
     }
-    if (!this.state.loaded) {
+    if (!overmind.state.snapshotLoaded) {
       return <Typography variant="headline">Loading...</Typography>
     }
     return (
       <div>
-        <Snapshot snapshot={this.state.snapshot}/>
+        <Snapshot snapshot={overmind.state.snapshot}/>
       </div>
     );
   }
 }
 
-export default SnapshotLoader;
+export default connect(SnapshotLoader);
