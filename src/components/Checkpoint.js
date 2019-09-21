@@ -89,18 +89,18 @@ class Checkpoint extends Component {
           <div className={classes.title}>
             <DialogTitle className={classes.title} >
               {checkpoint.name}
-              {checkpoint.actions.approve ?
+              {checkpoint.actions && checkpoint.actions.approve ?
                <IconButton onClick={this.handleApprove}>
                  <CheckIcon/>
                </IconButton> : ''
               }
-              {checkpoint.actions.reject ?
+              {checkpoint.actions &&  checkpoint.actions.reject ?
                <IconButton onClick={this.handleReject}>
                  <CloseIcon/>
                </IconButton>
                : ''
               }
-              {checkpoint.actions.ignore ?
+              {checkpoint.actions && checkpoint.actions.ignore ?
                <IconButton onClick={this.handleIgnore}>
                  <MoreHorizIcon/>
                </IconButton>
