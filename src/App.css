@@ -1,32 +1,76 @@
-.App {
-  text-align: center;
+body {
+  font-family: sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.snapshot .status,
+.checkpoint .status {
+  margin: 10px 4px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.snapshot li {
+  float: left;
 }
 
-.App-link {
-  color: #61dafb;
+.snapshot li > a {
+  text-decoration: none;
+  color: inherit;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.snapshot li > a:hover {
+  opacity: 0.8;
+}
+
+
+.checkpoint h2 {
+  color: grey;
+  margin: 4px;
+}
+
+.checkpoint.approved h2 {
+  color: green;
+}
+
+.checkpoint.rejected h2 {
+  color: red;
+}
+
+.checkpoint .actions {
+  margin: 10px 0;
+}
+
+.checkpoint .actions button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid black;
+  padding: 4px 8px;
+  margin: 4px;
+}
+
+.checkpoint .actions button.approve {
+  color: green;
+  border-color: green;
+}
+
+.checkpoint .actions button.reject {
+  color: red;
+  border-color: red;
+}
+
+.checkpoint.preview img {
+  width: 100%;
+  margin: 4px;
+}
+
+.checkpoint.preview {
+  max-width: 300px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.checkpoint .images-3 img {
+  max-width: 33%;
+}
+
+.checkpoint .images-2 img {
+  max-width: 50%;
 }

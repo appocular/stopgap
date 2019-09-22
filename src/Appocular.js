@@ -43,7 +43,6 @@ const getSnapshotById = async (id) => {
 
 const checkpointAction = async (snapshot, action) => {
   await put(snapshot.actions[action])
-  return await get(snapshot.self)
 }
 
 export const Appocular = {

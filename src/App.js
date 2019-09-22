@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import './reset.css';
 import './App.css';
 import Snapshot from './components/Snapshot';
+import Checkpoint from './components/Checkpoint';
 import Spinner from './components/Spinner';
 
 import { connect } from './overmind'
@@ -12,8 +14,14 @@ class App extends Component {
     case 'snapshot':
       return state.snapshotLoaded ? <Snapshot snapshot={state.snapshot}/> : <Spinner/>
 
+    case 'checkpoint':
+      return state.currentCheckpoint ? <Checkpoint checkpoint={state.getCurrentCheckpoint}/> : <Message/>
+
     case '':
       return <Spinner/>
+
+    case 'error':
+      return <p>{state.errorMessage}</p>
 
     default:
       return <Message/>
