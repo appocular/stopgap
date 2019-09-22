@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
-import SnapshotLoader from './components/SnapshotLoader';
+import Snapshot from './components/Snapshot';
+import Spinner from './components/Spinner';
 
 import { connect } from './overmind'
 
 class App extends Component {
   render() {
     const state = this.props.overmind.state
-    return (
-      <>
-        { state.currentPage === 'message' ? <Message/> : null }
-        { state.currentPage === 'snapshot' ? <SnapshotLoader/> : null }
-      </>
-    );
+    switch (state.currentPage) {
+    case 'snapshot':
+      return state.snapshotLoaded ? <Snapshot snapshot={state.snapshot}/> : <Spinner/>
+
+    case '':
+      return <Spinner/>
+
+    default:
+      return <Message/>
+    }
   }
 }
 
