@@ -5,25 +5,18 @@ import Snapshot from './Snapshot';
 import { connect } from '../overmind'
 
 class SnapshotLoader extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  async componentDidMount() {
-    this.props.overmind.actions.loadSnapshot(this.props.match.params.snapshot_id)
-  };
-
   render() {
-    const { overmind } = this.props
-    if (overmind.state.snapshotLoaded && !overmind.state.snapshot) {
+    const { snapshot, snapshotLoaded } = this.props.overmind.state
+
+    if (snapshotLoaded && !snapshot) {
       return <Typography variant="headline" color="error">Error loading.</Typography>
     }
-    if (!overmind.state.snapshotLoaded) {
+    if (!snapshotLoaded) {
       return <Typography variant="headline">Loading...</Typography>
     }
     return (
       <div>
-        <Snapshot snapshot={overmind.state.snapshot}/>
+        <Snapshot snapshot={snapshot}/>
       </div>
     );
   }
