@@ -87,8 +87,8 @@ body {
 }
 
 .checkpoint.preview {
-  max-width: 300px;
-  max-height: 200px;
+  width: 300px;
+  height: 200px;
   overflow: hidden;
 }
 
