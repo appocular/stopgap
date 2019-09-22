@@ -5,7 +5,11 @@ const Checkpoint = ({checkpoint, preview}) => {
   const { actions } = useOvermind()
   let content
   if (preview) {
-    content = checkpoint.image_url ? <img src={checkpoint.image_url}/> : null
+    content =
+      <div className="image">
+        {checkpoint.image_url ? <img src={checkpoint.image_url}/> : null}
+        {checkpoint.diff_url ? <img className="overlay" src={checkpoint.diff_url}/> : null}
+      </div>
   } else {
     const numImages = [checkpoint.image_url, checkpoint.baseline_url, checkpoint.diff_url].reduce((acc, url) => {
       if (url) acc++;

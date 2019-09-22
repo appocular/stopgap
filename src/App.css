@@ -56,9 +56,34 @@ body {
   border-color: red;
 }
 
+.checkpoint.preview .image {
+  position: relative;
+}
+
 .checkpoint.preview img {
   width: 100%;
   margin: 4px;
+}
+
+.checkpoint.preview img.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 .checkpoint.preview {
