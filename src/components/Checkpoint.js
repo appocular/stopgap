@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useOvermind } from '../overmind';
 
 const Checkpoint = ({checkpoint, preview}) => {
@@ -7,8 +7,8 @@ const Checkpoint = ({checkpoint, preview}) => {
   if (preview) {
     content =
       <div className="image">
-        {checkpoint.image_url ? <img src={checkpoint.image_url}/> : null}
-        {checkpoint.diff_url ? <img className="overlay" src={checkpoint.diff_url}/> : null}
+        {checkpoint.image_url ? <img alt="" src={checkpoint.image_url}/> : null}
+        {checkpoint.diff_url ? <img className="overlay" alt="" src={checkpoint.diff_url}/> : null}
       </div>
   } else {
     const numImages = [checkpoint.image_url, checkpoint.baseline_url, checkpoint.diff_url].reduce((acc, url) => {
@@ -24,9 +24,9 @@ const Checkpoint = ({checkpoint, preview}) => {
           {checkpoint.actions.ignore ? <button className="ignore" onClick={actions.ignoreCurrentCheckpoint}>Ignore</button> : null}
         </div>
         <div className={'images images-' + numImages}>
-          {checkpoint.image_url ? <img src={checkpoint.image_url}/> : null}
-          {checkpoint.baseline_url ? <img src={checkpoint.baseline_url}/> : null}
-          {checkpoint.diff_url ? <img src={checkpoint.diff_url}/> : null}
+          {checkpoint.image_url ? <img alt="" src={checkpoint.image_url}/> : null}
+          {checkpoint.baseline_url ? <img alt="" src={checkpoint.baseline_url}/> : null}
+          {checkpoint.diff_url ? <img alt="" src={checkpoint.diff_url}/> : null}
         </div>
       </>
   }
