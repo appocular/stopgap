@@ -1,83 +1,117 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardHeader from '@material-ui/core/CardHeader';
 import Checkpoint from './Checkpoint';
-import DialogContent from '@material-ui/core/DialogContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Chip from '@material-ui/core/Chip';
+import { cleanup } from '@testing-library/react';
+import { renderWithOvermind } from '../utils/testing'
+
+afterEach(cleanup)
 
 describe('Checkpoint', () => {
 
-  it('renders without crashing', () => {
-    mount(<Checkpoint checkpoint={{name: "test", id: 1}} />)
-  });
+  it('shows the checkpoint/snapshot name', () => {
+    const { queryByText, overmind } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            id: 1,
+            name: 'Checkpoint name',
+          }
+        ]})
+      actions.setCurrentCheckpoint(1)
+    })
 
-  it('shows the checkpoint name', () => {
-    const checkpoint = mount(<Checkpoint checkpoint={{name: "Checkpoint name", id: 1}} />)
-
-    expect(checkpoint.find(Card).find(CardActionArea).find(CardHeader).props().title).toEqual('Checkpoint name')
+    expect(queryByText('Snapshot id / Checkpoint name')).toBeInTheDocument()
   });
 
   it('shows the checkpoint image', () => {
-    const checkpoint = mount(<Checkpoint checkpoint={{name: "Checkpoint name", id: 1, image_url: "the/image_url"}} />)
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            id: 1,
+            name: 'Checkpoint name',
+            image_url: 'the/image_url'
+          }
+        ]})
+      actions.setCurrentCheckpoint(1)
+    })
 
-    expect(checkpoint.find(CardActionArea).find(CardMedia).prop('image')).toEqual('the/image_url')
+    let imgs = container.getElementsByTagName('img')
+    expect(imgs).toHaveLength(1)
+    expect(imgs[0].getAttribute('src')).toEqual('the/image_url')
   })
 
-  it('shows the checkpoint image in dialog', () => {
-    const checkpoint = mount(<Checkpoint checkpoint={{name: "Checkpoint name", id: 1, image_url: "the/image_url"}} />)
-    // Open the dialog.
-    checkpoint.find(CardActionArea).simulate('click');
 
-    expect(checkpoint.find(DialogContent).find(CardMedia).prop('image')).toEqual('the/image_url')
+  it('shows checkpoint image and baseline', () => {
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            id: 1,
+            name: 'Checkpoint name',
+            image_url: 'the/image_url',
+            baseline_url: 'the/baseline_url'
+          }
+        ]})
+      actions.setCurrentCheckpoint(1)
+    })
+
+    let imgs = container.getElementsByTagName('img')
+    expect(imgs).toHaveLength(2)
+    expect(imgs[0].getAttribute('src')).toEqual('the/image_url')
+    expect(imgs[1].getAttribute('src')).toEqual('the/baseline_url')
   })
 
-  it('shows the checkpoint baseline in dialog', () => {
-    const props = {
-      name: "Checkpoint name",
+  it('shows checkpoint image, baseline and diff', () => {
+    let data = {
       id: 1,
-      image_url: "the/image_url",
-      baseline_url: "the/baseline_url"
-    };
-    const checkpoint = mount(<Checkpoint checkpoint={props} />)
-    // Open the dialog.
-    checkpoint.find(CardActionArea).simulate('click');
+      name: 'Checkpoint name',
+      image_url: 'the/image_url',
+      baseline_url: 'the/baseline_url',
+      diff_url: 'the/diff_url'
+    }
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            id: 1,
+            name: 'Checkpoint name',
+            image_url: 'the/image_url',
+            baseline_url: 'the/baseline_url',
+            diff_url: 'the/diff_url'
+          }
+        ]})
+      actions.setCurrentCheckpoint(1)
+    })
 
-    expect(checkpoint.find(DialogContent).find(CardMedia).at(1).prop('image')).toEqual('the/baseline_url')
+    let imgs = container.getElementsByTagName('img')
+    expect(imgs).toHaveLength(3)
+    expect(imgs[0].getAttribute('src')).toEqual('the/image_url')
+    expect(imgs[1].getAttribute('src')).toEqual('the/baseline_url')
+    expect(imgs[2].getAttribute('src')).toEqual('the/diff_url')
   })
 
-  it('shows the checkpoint diff in dialog', () => {
-    const props = {
-      name: "Checkpoint name",
-      id: 1,
-      image_url: "the/image_url",
-      baseline_url: "the/baseline_url",
-      diff_url: "the/diff_url"
-    };
-    const checkpoint = mount(<Checkpoint checkpoint={props} />)
-    // Open the dialog.
-    checkpoint.find(CardActionArea).simulate('click');
+  it('shows the checkpoint status', () => {
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            name: "Checkpoint name",
+            id: 1,
+            image_url: "the/image_url",
+            baseline_url: "the/baseline_url",
+            diff_url: "the/diff_url",
+            status: "passed"
+          }
+        ]})
+      actions.setCurrentCheckpoint(1)
+    })
 
-    expect(checkpoint.find(DialogContent).find(CardMedia).at(2).prop('image')).toEqual('the/diff_url')
+    expect(queryByText('Status: passed')).toBeInTheDocument()
   })
 
-  it('shows the checkpoint status in dialog', () => {
-    const props = {
-      name: "Checkpoint name",
-      id: 1,
-      image_url: "the/image_url",
-      baseline_url: "the/baseline_url",
-      diff_url: "the/diff_url",
-      status: "passed"
-    };
-    const checkpoint = mount(<Checkpoint checkpoint={props} />)
-    // Open the dialog.
-    checkpoint.find(CardActionArea).simulate('click');
-
-    expect(checkpoint.find(DialogTitle).find(Chip).prop('label')).toEqual('passed')
-  })
 });

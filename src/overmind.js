@@ -13,7 +13,6 @@ export const config = {
   },
   state: {
     currentPage: '',
-    snapshotLoaded: false,
     snapshot: null,
     currentCheckpoint: null,
     getCurrentCheckpoint: ({currentCheckpoint, snapshot}) => {
@@ -21,22 +20,14 @@ export const config = {
     }
   },
   actions: {
-    loadSnapshot: async ({ state, effects }, snapshotId) => {
+    loadSnapshot: async ({ state, actions, effects }, snapshotId) => {
       state.snapshot = null
-      state.snapshotLoaded = false
       const snapshot = await effects.getSnapshotById(snapshotId)
       if (snapshot) {
-        // Make checkpoints be indexed by id.
-        snapshot.checkpoints = snapshot.checkpoints.reduce((map, checkpoint) => {
-          map[checkpoint.id] = checkpoint
-          return map
-        }, {})
-        state.snapshot = snapshot
-        state.snapshotLoaded = true
+        actions.setSnapshot(snapshot)
       }
       else {
-        state.currentPage = 'error'
-        state.errorMessage = 'Error loading snapshot.'
+        actions.setError('Error loading snapshot.')
       }
     },
 
@@ -46,15 +37,22 @@ export const config = {
 
     showSnapshot: async ({ state, actions }, params) => {
       state.currentPage = 'snapshot'
-      await actions.loadSnapshot(params.snapshotId)
+      if (!state.snapshot || state.snapshot.id != params.snapshotId) {
+        await actions.loadSnapshot(params.snapshotId)
+      }
     },
 
     showCheckpoint: async ({ state, actions }, params) => {
       state.currentPage = 'checkpoint'
-      if (!state.snapshotLoaded) {
+      if (!state.snapshot) {
         await actions.loadSnapshot(params.snapshotId)
       }
-      state.currentCheckpoint = params.checkpointId
+      if (!state.snapshot.checkpoints[params.checkpointId]) {
+        actions.setError('Error loading checkpoint.')
+      }
+      else {
+        actions.setCurrentCheckpoint(params.checkpointId)
+      }
     },
 
     approveCurrentCheckpoint: async ({state, effects}) => {
@@ -71,6 +69,24 @@ export const config = {
       effects.checkpointAction(state.getCurrentCheckpoint, 'ignore')
       effects.router.open('/' + state.snapshot.id)
     },
+
+    setSnapshot: ({state}, snapshot) => {
+      // Make checkpoints be indexed by id.
+      snapshot.checkpoints = snapshot.checkpoints.reduce((map, checkpoint) => {
+        map[checkpoint.id] = checkpoint
+        return map
+      }, {})
+      state.snapshot = snapshot
+    },
+
+    setCurrentCheckpoint: ({state}, checkpointId) => {
+      state.currentCheckpoint = checkpointId
+    },
+
+    setError: ({state}, message) => {
+      state.currentPage = 'error'
+      state.errorMessage = message
+    }
   },
   effects: {
     router: {

@@ -1,21 +1,19 @@
 import React from 'react';
-import Checkpoint from './Checkpoint'
-import { useOvermind } from '../overmind'
+import CheckpointPreview from './CheckpointPreview'
+import { useOvermind } from '../overmind';
 
-const Snapshot = ({snapshot}) => {
-  const { actions }  = useOvermind()
-  const gotoCheckpoint = (checkpointId) => {
-    actions.showCheckpoint(checkpointId)
-  }
-
+const Snapshot = () => {
+  const { state } = useOvermind()
+  const snapshot = state.snapshot
   return (
     <div className="snapshot">
+      <h1>{snapshot.id}</h1>
       <div className="status">Status: {snapshot.status}, {snapshot.run_status}</div>
       <ul>
         {Object.values(snapshot.checkpoints).map((checkpoint) => (
-          <li key={checkpoint.self} onClick={gotoCheckpoint}>
+          <li key={checkpoint.id}>
             <a href={snapshot.id + "/" + checkpoint.id}>
-              <Checkpoint checkpoint={checkpoint} preview={true}/>
+              <CheckpointPreview checkpoint={checkpoint} preview={true}/>
             </a>
           </li>
         ))}

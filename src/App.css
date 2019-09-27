@@ -1,14 +1,25 @@
 body {
   font-family: sans-serif;
+  padding: 16px;
 }
 
 .snapshot .status,
 .checkpoint .status {
-  margin: 10px 4px;
+  margin: 10px 0;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 8px 0;
+}
+
+.snapshot ul {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+  grid-gap: 8px;
 }
 
 .snapshot li {
-  float: left;
 }
 
 .snapshot li > a {
@@ -23,7 +34,7 @@ body {
 
 .checkpoint h2 {
   color: grey;
-  margin: 4px;
+  margin: 8px 0 4px;
 }
 
 .checkpoint.approved h2 {
@@ -38,12 +49,18 @@ body {
   margin: 10px 0;
 }
 
+.checkpoint .actions {
+  display: grid;
+  grid-template-columns: repeat( 3, 1fr );
+  grid-gap: 4px;
+  max-width: 300px;
+}
+
 .checkpoint .actions button {
   cursor: pointer;
   background-color: transparent;
   border: 1px solid black;
   padding: 4px 8px;
-  margin: 4px;
 }
 
 .checkpoint .actions button.approve {
@@ -62,7 +79,6 @@ body {
 
 .checkpoint.preview img {
   width: 100%;
-  margin: 4px;
 }
 
 .checkpoint.preview img.overlay {
@@ -87,8 +103,7 @@ body {
 }
 
 .checkpoint.preview {
-  width: 300px;
-  height: 200px;
+  max-height: 200px;
   overflow: hidden;
 }
 

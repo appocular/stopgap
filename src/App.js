@@ -12,10 +12,10 @@ class App extends Component {
     const state = this.props.overmind.state
     switch (state.currentPage) {
     case 'snapshot':
-      return state.snapshotLoaded ? <Snapshot snapshot={state.snapshot}/> : <Spinner/>
+      return state.snapshot ? <Snapshot/> : <Spinner/>
 
     case 'checkpoint':
-      return state.currentCheckpoint ? <Checkpoint checkpoint={state.getCurrentCheckpoint}/> : <Message/>
+      return state.getCurrentCheckpoint ? <Checkpoint/> : <Spinner/>
 
     case '':
       return <Spinner/>
@@ -30,7 +30,7 @@ class App extends Component {
 }
 
 function Message() {
-  return "You shouldn't be here...";
+  return <p>You shouldn't be here...</p>
 }
 
 export default connect(App);
