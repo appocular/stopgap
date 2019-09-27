@@ -24,13 +24,9 @@ class App extends Component {
       return <p>{state.errorMessage}</p>
 
     default:
-      return <Message/>
+      return <p>You shouldn't be here...</p>
     }
   }
-}
-
-function Message() {
-  return <p>You shouldn't be here...</p>
 }
 
 export default connect(App);

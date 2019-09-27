@@ -21,4 +21,40 @@ describe('App', () => {
     expect(queryByText("You shouldn't be here...")).toBeInTheDocument()
   });
 
+  it('renders snapshot', () => {
+    config.state.currentPage = 'snapshot'
+    const { queryByText } = renderWithOvermind(<App />, (actions) => {
+      actions.setSnapshot({
+        id: 'snapshot id',
+        checkpoints: []
+      })
+    })
+
+    expect(queryByText("snapshot id")).toBeInTheDocument()
+  })
+
+  it('renders checkpoint', () => {
+    config.state.currentPage = 'checkpoint'
+    const { queryByText } = renderWithOvermind(<App />, (actions) => {
+      actions.setSnapshot({
+        id: 'snapshot id',
+        checkpoints: [{
+          id: 1,
+          name: 'checkpoint id'
+        }]
+      })
+      actions.setCurrentCheckpoint(1)
+    })
+
+    expect(queryByText("snapshot id / checkpoint id")).toBeInTheDocument()
+  })
+
+  it('renders error message', async () => {
+    config.state.currentPage = 'error'
+    config.state.errorMessage = 'this is the error message'
+    const { queryByText } = renderWithOvermind(<App />)
+
+    expect(queryByText("this is the error message")).toBeInTheDocument()
+  });
+
 });
