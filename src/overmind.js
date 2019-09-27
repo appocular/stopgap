@@ -57,17 +57,23 @@ export const config = {
 
     approveCurrentCheckpoint: async ({state, effects}) => {
       effects.checkpointAction(state.getCurrentCheckpoint, 'approve')
-      effects.router.open('/' + state.snapshot.id)
+      const snapshotId = state.snapshot.id
+      state.snapshot = null
+      effects.router.open('/' + snapshotId)
     },
 
     rejectCurrentCheckpoint: async ({state, effects}) => {
       effects.checkpointAction(state.getCurrentCheckpoint, 'reject')
-      effects.router.open('/' + state.snapshot.id)
+      const snapshotId = state.snapshot.id
+      state.snapshot = null
+      effects.router.open('/' + snapshotId)
     },
 
     ignoreCurrentCheckpoint: async ({state, effects}) => {
       effects.checkpointAction(state.getCurrentCheckpoint, 'ignore')
-      effects.router.open('/' + state.snapshot.id)
+      const snapshotId = state.snapshot.id
+      state.snapshot = null
+      effects.router.open('/' + snapshotId)
     },
 
     setSnapshot: ({state}, snapshot) => {
