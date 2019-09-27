@@ -37,7 +37,7 @@ export const config = {
 
     showSnapshot: async ({ state, actions }, params) => {
       state.currentPage = 'snapshot'
-      if (!state.snapshot || state.snapshot.id != params.snapshotId) {
+      if (!state.snapshot || state.snapshot.id !== params.snapshotId) {
         await actions.loadSnapshot(params.snapshotId)
       }
     },

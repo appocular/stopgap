@@ -20,9 +20,9 @@ const Checkpoint = () => {
         {checkpoint.actions && checkpoint.actions.ignore ? <button className="ignore" onClick={actions.ignoreCurrentCheckpoint}>Ignore</button> : null}
       </div>
       <div className={'images images-' + numImages}>
-        {checkpoint.image_url ? <img alt="" src={checkpoint.image_url}/> : null}
-        {checkpoint.baseline_url ? <img alt="" src={checkpoint.baseline_url}/> : null}
-        {checkpoint.diff_url ? <img alt="" src={checkpoint.diff_url}/> : null}
+        {checkpoint.image_url ? <img className="new" alt="" src={checkpoint.image_url}/> : null}
+        {checkpoint.baseline_url ? <img className="baseline" alt="" src={checkpoint.baseline_url}/> : null}
+        {checkpoint.diff_url ? <img className="diff" alt="" src={checkpoint.diff_url}/> : null}
       </div>
     </div>
   )

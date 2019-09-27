@@ -107,10 +107,36 @@ h1 {
   overflow: hidden;
 }
 
-.checkpoint .images-3 img {
-  max-width: 33%;
+.checkpoint .images img {
+  max-width: 100%;
 }
 
-.checkpoint .images-2 img {
-  max-width: 50%;
+.checkpoint .images.images-2 {
+  display: grid;
+  grid-template-columns: auto auto
+}
+
+.checkpoint .images.images-3 {
+  display: grid;
+  grid-template-columns: repeat( 3, minmax(300px, 1fr));
+  grid-gap: 8px;
+}
+
+.checkpoint .images img {
+  transition: opacity .1s ease-in-out;
+}
+
+.checkpoint.approved .images img.baseline {
+  opacity: 0.5;
+}
+
+.checkpoint.rejected .images img.new,
+.checkpoint.ignored .images img.new {
+  opacity: 0.5;
+}
+
+.checkpoint.approved .images img.baseline:hover,
+.checkpoint.rejected .images img.new:hover,
+.checkpoint.ignored .images img.new:hover {
+  opacity: 1;
 }
