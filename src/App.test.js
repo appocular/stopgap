@@ -39,11 +39,12 @@ describe('App', () => {
       actions.setSnapshot({
         id: 'snapshot id',
         checkpoints: [{
-          id: 1,
+          self: 1,
+          slug: 'checkpoint-id',
           name: 'checkpoint id'
         }]
       })
-      actions.setCurrentCheckpoint(1)
+      actions.setCurrentCheckpoint('checkpoint-id')
     })
 
     expect(queryByText("snapshot id / checkpoint id")).toBeInTheDocument()

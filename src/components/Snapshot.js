@@ -11,8 +11,8 @@ const Snapshot = () => {
       <div className="status">Status: {snapshot.status}, {snapshot.run_status}</div>
       <ul>
         {Object.values(snapshot.checkpoints).map((checkpoint) => (
-          <li key={checkpoint.id}>
-            <a href={snapshot.id + "/" + checkpoint.id}>
+          <li key={checkpoint.self}>
+            <a href={snapshot.id + "/" + checkpoint.slug}>
               <CheckpointPreview checkpoint={checkpoint} preview={true}/>
             </a>
           </li>

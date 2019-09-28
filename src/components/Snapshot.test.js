@@ -25,8 +25,8 @@ describe('Snapshot', () => {
       actions.setSnapshot({
         id: 'snapshot id',
         checkpoints: [
-          {id: 1, name: 'image 1'},
-          {id: 2, name: 'image 2'}
+          {id: 1, self: 1, name: 'image 1', slug: 'image-1'},
+          {id: 2, self: 2, name: 'image 2', slug: 'image-2'}
         ]
       })
     })

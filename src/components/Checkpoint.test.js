@@ -14,10 +14,11 @@ describe('Checkpoint', () => {
         checkpoints: [
           {
             id: 1,
+            slug: 'uno',
             name: 'Checkpoint name',
           }
         ]})
-      actions.setCurrentCheckpoint(1)
+      actions.setCurrentCheckpoint('uno')
     })
 
     expect(queryByText('Snapshot id / Checkpoint name')).toBeInTheDocument()
@@ -30,11 +31,12 @@ describe('Checkpoint', () => {
         checkpoints: [
           {
             id: 1,
+            slug: 'uno',
             name: 'Checkpoint name',
             image_url: 'the/image_url'
           }
         ]})
-      actions.setCurrentCheckpoint(1)
+      actions.setCurrentCheckpoint('uno')
     })
 
     let imgs = container.getElementsByTagName('img')
@@ -50,12 +52,13 @@ describe('Checkpoint', () => {
         checkpoints: [
           {
             id: 1,
+            slug: 'uno',
             name: 'Checkpoint name',
             image_url: 'the/image_url',
             baseline_url: 'the/baseline_url'
           }
         ]})
-      actions.setCurrentCheckpoint(1)
+      actions.setCurrentCheckpoint('uno')
     })
 
     let imgs = container.getElementsByTagName('img')
@@ -78,13 +81,14 @@ describe('Checkpoint', () => {
         checkpoints: [
           {
             id: 1,
+            slug: 'uno',
             name: 'Checkpoint name',
             image_url: 'the/image_url',
             baseline_url: 'the/baseline_url',
             diff_url: 'the/diff_url'
           }
         ]})
-      actions.setCurrentCheckpoint(1)
+      actions.setCurrentCheckpoint('uno')
     })
 
     let imgs = container.getElementsByTagName('img')
@@ -102,13 +106,14 @@ describe('Checkpoint', () => {
           {
             name: "Checkpoint name",
             id: 1,
+            slug: 'uno',
             image_url: "the/image_url",
             baseline_url: "the/baseline_url",
             diff_url: "the/diff_url",
             status: "passed"
           }
         ]})
-      actions.setCurrentCheckpoint(1)
+      actions.setCurrentCheckpoint('uno')
     })
 
     expect(queryByText('Status: passed')).toBeInTheDocument()

@@ -77,9 +77,9 @@ export const config = {
     },
 
     setSnapshot: ({state}, snapshot) => {
-      // Make checkpoints be indexed by id.
+      // Make checkpoints be indexed by slug.
       snapshot.checkpoints = snapshot.checkpoints.reduce((map, checkpoint) => {
-        map[checkpoint.id] = checkpoint
+        map[checkpoint.slug] = checkpoint
         return map
       }, {})
       state.snapshot = snapshot
