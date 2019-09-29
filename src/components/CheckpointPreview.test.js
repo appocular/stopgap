@@ -48,4 +48,54 @@ describe('CheckpointPreview', () => {
     expect(imgs[1]).toHaveClass('overlay')
   })
 
+  it('marks new images', () => {
+    const data = {
+      id: 1,
+      name: 'Checkpoint name',
+      image_url: 'something',
+      diff_status: 'different'
+    }
+    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+
+    expect(queryByText('Checkpoint name (new)')).toBeInTheDocument()
+  });
+
+  it('marks deleted images', () => {
+    const data = {
+      id: 1,
+      name: 'Checkpoint name',
+      baseline_url: 'something',
+      diff_status: 'different'
+    }
+    const { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+
+    expect(queryByText('Checkpoint name (deleted)')).toBeInTheDocument()
+
+    let imgs = container.getElementsByTagName('img')
+    expect(imgs).toHaveLength(1)
+    // Check that the baseline image is shown.
+    expect(imgs[0].getAttribute('src')).toEqual('something')
+  });
+
+  it("do not mark new/deleted images when there's no diff status", () => {
+    let data = {
+      id: 1,
+      name: 'Checkpoint name',
+      image_url: 'something',
+    }
+    var { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+
+    expect(queryByText('Checkpoint name')).toBeInTheDocument()
+
+    data = {
+      id: 1,
+      name: 'Checkpoint name',
+      baseline_url: 'something',
+      diff_status: 'different'
+    }
+    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+
+    expect(queryByText('Checkpoint name (deleted)')).toBeInTheDocument()
+  });
+
 });
