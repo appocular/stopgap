@@ -7,13 +7,6 @@ import { render } from '@testing-library/react';
 export const renderWithOvermind = (component, stateSetup, effects) => {
   const overmind = createOvermindMock(config, effects);
 
-  // overmind.state = {
-  //   ...state,
-  //   ...overmind.state
-  // }
-
-  //overmind.state.snapshot = {id: 'Snapshot id'};
-  //overmind.actions.setSnapshot({id: 'Snapshot id'});
   if (stateSetup) {
     stateSetup(overmind.actions)
   }
