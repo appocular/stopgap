@@ -8,7 +8,7 @@ afterEach(cleanup)
 describe('Checkpoint', () => {
 
   it('shows the checkpoint/snapshot name', () => {
-    const { queryByText, overmind } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+    const { queryByText, overmind } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
         checkpoints: [
@@ -25,7 +25,7 @@ describe('Checkpoint', () => {
   });
 
   it('shows the checkpoint image', () => {
-    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
         checkpoints: [
@@ -46,7 +46,7 @@ describe('Checkpoint', () => {
 
 
   it('shows checkpoint image and baseline', () => {
-    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
         checkpoints: [
@@ -75,7 +75,7 @@ describe('Checkpoint', () => {
       baseline_url: 'the/baseline_url',
       diff_url: 'the/diff_url'
     }
-    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
         checkpoints: [
@@ -99,7 +99,7 @@ describe('Checkpoint', () => {
   })
 
   it('shows the checkpoint status', () => {
-    const { container, queryByText } = renderWithOvermind(<Checkpoint/>,  (actions) => {
+    const { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
         checkpoints: [
@@ -117,6 +117,49 @@ describe('Checkpoint', () => {
     })
 
     expect(queryByText('Status: passed')).toBeInTheDocument()
+  })
+
+  it('shows the checkpoint new/deleted status', () => {
+    var { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            name: "Checkpoint name",
+            id: 1,
+            slug: 'uno',
+            image_url: "the/image_url",
+            baseline_url: "",
+            diff_url: "the/diff_url",
+            status: "passed",
+            diff_status: 'different'
+          }
+        ]})
+      actions.setCurrentCheckpoint('uno')
+    })
+
+    expect(queryByText('Status: passed, new')).toBeInTheDocument()
+
+    var { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            name: "Checkpoint name",
+            id: 1,
+            slug: 'duo',
+            image_url: "",
+            baseline_url: "the/baseline_url",
+            diff_url: "the/diff_url",
+            status: "passed",
+            diff_status: 'different'
+          }
+
+        ]})
+      actions.setCurrentCheckpoint('duo')
+    })
+
+    expect(queryByText('Status: passed, deleted')).toBeInTheDocument()
   })
 
 });

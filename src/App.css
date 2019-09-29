@@ -111,6 +111,10 @@ h1 {
   max-width: 100%;
 }
 
+.checkpoint.deleted img {
+  opacity: 0.5;
+}
+
 .checkpoint .images.images-2 {
   display: grid;
   grid-template-columns: auto auto
@@ -135,6 +139,7 @@ h1 {
   opacity: 0.5;
 }
 
+.checkpoint.deleted img:hover,
 .checkpoint.approved .images img.baseline:hover,
 .checkpoint.rejected .images img.new:hover,
 .checkpoint.ignored .images img.new:hover {
