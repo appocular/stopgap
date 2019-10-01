@@ -1,0 +1,69 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.3-cli-node-browsers
+    working_directory: ~/build
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install libpng
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y libpng-dev
+      - run:
+          name: Install java
+          command: |
+            sudo apt-get install -y openjdk-11-jre-headless
+      - run:
+          name: Install PHP Extensions
+          command: sudo docker-php-ext-install gd
+      - run:
+          name: Increase PHP memory limit
+          command: |
+            echo "memory_limit = 512M" | sudo tee /usr/local/etc/php/conf.d/memory.ini
+      - restore_cache:
+          key: v2-helpers-{{ checksum ".circleci/config.yml" }}
+      - run:
+          name: Download helpers
+          command: |
+            if [ ! -d helpers ]; then
+              mkdir helpers
+              cd helpers
+              curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+              curl -LO https://github.com/appocular/rorschach/releases/download/0.5.0/rorschach.phar
+              chmod a+x rorschach.phar
+            fi
+      - save_cache:
+          key: v2-helpers-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - helpers
+      - run:
+          name: Start Selenium
+          command: |
+            java -jar helpers/selenium-server-standalone-3.5.3.jar
+          background: true
+      - run:
+          name: Start Stopgap
+          command: |
+            npm start
+          background: true
+      - run:
+          name: Run visual tests
+          command: |
+            # Give Selenium a chance to start up.
+            sleep 3
+            helpers/rorschach.phar

@@ -1,0 +1,27 @@
+webdriver_url: http://localhost:4444/wd/hub
+base_url: http://localhost:3000/
+defaults:
+  browser_height: 800
+  browser_width: 1280
+  # Selenium might wait for document.loaded, but React renders quickly
+  # and then dynamically loads things, so we wait a bit to give it
+  # time to talk to assessor and starting to fetch images.
+  wait: 2
+  # stitch_delay: 1
+  # Wait for images to be fully loaded before talking screenshot.
+  wait_script: |
+    return (Array.from(document.images).find(function (image) {
+      return !image.complete
+    }) === undefined)
+steps:
+  Frontpage: /
+  "Approved baseline": /test-baseline
+  "Approved baseline checkpoint": /test-baseline/frontpage
+  "Snapshot": /test-snapshot
+  "Auto approved checkpoint": /test-snapshot/frontpage
+  "New checkpoint": /test-snapshot/article-with-quote
+  "Deleted checkpoint": /test-snapshot/jobs
+  "Checkpoint with difference": /test-snapshot/skills
+  "Pending snapshot": /test-snapshot2
+  "Pending checkpoint": /test-snapshot2/om-os
+  
