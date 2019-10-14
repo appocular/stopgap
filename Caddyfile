@@ -1,0 +1,7 @@
+0.0.0.0 {
+	tls off
+	root /var/www/html
+	rewrite / {
+                to {path} /
+	}
+}
