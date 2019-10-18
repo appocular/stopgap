@@ -29,6 +29,10 @@ jobs:
           command: |
             sudo apt-get install -y openjdk-11-jre-headless
       - run:
+          name: Install xdotool
+          command: |
+            sudo apt-get install -y xdotool
+      - run:
           name: Install PHP Extensions
           command: sudo docker-php-ext-install gd
       - run:
@@ -66,4 +70,9 @@ jobs:
           command: |
             # Give Selenium a chance to start up.
             sleep 3
+            # Move mouse pointer from the default screen center position
+            # to upper left corner, so it wont trigger hover states on
+            # elements.
+            xdotool mousemove 0 0
+            xdotool getmouselocation
             helpers/rorschach.phar
