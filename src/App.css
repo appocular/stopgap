@@ -41,6 +41,10 @@ h1 {
   color: blue;
 }
 
+.checkpoint.status-ignored h2 {
+  color: grey;
+}
+
 .checkpoint.status-approved h2 {
   color: green;
 }
