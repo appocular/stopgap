@@ -6,7 +6,8 @@ const CheckpointPreview = ({checkpoint, preview}) => {
       classes = [
         'checkpoint',
         'preview',
-        checkpoint.status
+        'status-' + checkpoint.status,
+        'diff-status-' + checkpoint.diff_status
       ]
   if (checkpoint.diff_status ==  'different') {
     if (!checkpoint.image_url) {

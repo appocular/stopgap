@@ -37,11 +37,15 @@ h1 {
   margin: 8px 0 4px;
 }
 
-.checkpoint.approved h2 {
+.checkpoint.diff-status-different h2 {
+  color: blue;
+}
+
+.checkpoint.status-approved h2 {
   color: green;
 }
 
-.checkpoint.rejected h2 {
+.checkpoint.status-rejected h2 {
   color: red;
 }
 

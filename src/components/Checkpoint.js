@@ -6,7 +6,8 @@ const Checkpoint = () => {
   const checkpoint = state.getCurrentCheckpoint
   let suffix, classes = [
     'checkpoint',
-    checkpoint.status
+    'status-' + checkpoint.status,
+    'diff-status-' + checkpoint.diff_status
   ]
 
   if (checkpoint.diff_status ==  'different') {
