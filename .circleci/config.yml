@@ -48,7 +48,7 @@ jobs:
               mkdir helpers
               cd helpers
               curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-              curl -LO https://github.com/appocular/rorschach/releases/download/0.5.0/rorschach.phar
+              curl -LO https://github.com/appocular/rorschach/releases/download/0.5.1/rorschach.phar
               chmod a+x rorschach.phar
             fi
       - save_cache:
