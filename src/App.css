@@ -138,18 +138,18 @@ h1 {
   transition: opacity .1s ease-in-out;
 }
 
-.checkpoint.approved .images img.baseline {
+.checkpoint.status-approved .images img.baseline {
   opacity: 0.5;
 }
 
-.checkpoint.rejected .images img.new,
-.checkpoint.ignored .images img.new {
+.checkpoint.status-rejected .images img.new,
+.checkpoint.status-ignored .images img.new {
   opacity: 0.5;
 }
 
 .checkpoint.deleted img:hover,
-.checkpoint.approved .images img.baseline:hover,
-.checkpoint.rejected .images img.new:hover,
-.checkpoint.ignored .images img.new:hover {
+.checkpoint.status-approved .images img.baseline:hover,
+.checkpoint.status-rejected .images img.new:hover,
+.checkpoint.status-ignored .images img.new:hover {
   opacity: 1;
 }
