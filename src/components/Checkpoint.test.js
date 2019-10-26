@@ -162,4 +162,22 @@ describe('Checkpoint', () => {
     expect(queryByText('Status: passed, deleted')).toBeInTheDocument()
   })
 
+  it('shows the checkpoint meta data', () => {
+    const { queryByText, overmind } = renderWithOvermind(<Checkpoint/>, (actions) => {
+      actions.setSnapshot({
+        id: 'Snapshot id',
+        checkpoints: [
+          {
+            id: 1,
+            slug: 'uno',
+            name: 'Checkpoint name',
+            meta: {"browser_size": "800x600", "something": "else"}
+          }
+        ]})
+      actions.setCurrentCheckpoint('uno')
+    })
+
+    expect(queryByText('browser_size: 800x600, something: else')).toBeInTheDocument()
+  });
+
 });

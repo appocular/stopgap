@@ -98,4 +98,14 @@ describe('CheckpointPreview', () => {
     expect(queryByText('Checkpoint name (deleted)')).toBeInTheDocument()
   });
 
+  it('shows metadata', () => {
+    const data = {
+      id: 1,
+      name: 'Checkpoint name',
+      meta: {"browser_size": "800x600", "something": "else"}
+    }
+    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+
+    expect(queryByText('browser_size: 800x600, something: else')).toBeInTheDocument()
+  })
 });
