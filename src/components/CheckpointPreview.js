@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckpointMeta from './CheckpointMeta';
 
 const CheckpointPreview = ({checkpoint, preview}) => {
   let suffix = '',
@@ -19,8 +20,10 @@ const CheckpointPreview = ({checkpoint, preview}) => {
       classes.push('new')
     }
   }
+
   return <div className={classes.join(' ')}>
            <h2>{checkpoint.name}{suffix}</h2>
+           <CheckpointMeta meta={checkpoint.meta}/>
            <div className="image">
              {image ? <img alt="" src={image}/> : null}
              {checkpoint.diff_url ? <img className="overlay" alt="" src={checkpoint.diff_url}/> : null}

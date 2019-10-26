@@ -1,5 +1,6 @@
 import React from 'react';
 import { useOvermind } from '../overmind';
+import CheckpointMeta from './CheckpointMeta';
 
 const Checkpoint = () => {
   const { state, actions } = useOvermind()
@@ -30,6 +31,7 @@ const Checkpoint = () => {
     <div className={classes.join(' ')}>
       <h1>{state.snapshot.id} / {checkpoint.name}</h1>
       <div className="status">Status: {checkpoint.status}{suffix}</div>
+      <CheckpointMeta meta={checkpoint.meta}/>
       <div className="actions">
         {checkpoint.actions && checkpoint.actions.approve ? <button className="approve" onClick={actions.approveCurrentCheckpoint}>Approve</button> : null}
         {checkpoint.actions && checkpoint.actions.reject ? <button className="reject" onClick={actions.rejectCurrentCheckpoint}>Reject</button> : null}
