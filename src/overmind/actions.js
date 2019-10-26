@@ -56,9 +56,17 @@ export const ignoreCurrentCheckpoint = async ({state, effects}) => {
 }
 
 export const setSnapshot = ({state}, snapshot) => {
-  // Make checkpoints be indexed by slug.
-  snapshot.checkpoints = snapshot.checkpoints.reduce((map, checkpoint) => {
-    map[checkpoint.slug] = checkpoint
+  // Group checkpoints by browser_size and indexed by slug.
+  const grouped = snapshot.checkpoints.reduce((map, checkpoint) => {
+    const size = checkpoint.meta && checkpoint.meta.browser_size ? checkpoint.meta.browser_size : ''
+    if (!map.hasOwnProperty(size)) {
+      map[size] = []
+    }
+    map[size][checkpoint.slug] = checkpoint
+    return map
+  }, {})
+  snapshot.checkpoints = Object.values(grouped).reduce((map, checkpoints) => {
+    map = {...map, ...checkpoints}
     return map
   }, {})
   state.snapshot = snapshot
