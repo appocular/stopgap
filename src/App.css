@@ -1,16 +1,27 @@
 body {
   font-family: sans-serif;
-  padding: 16px;
+  padding: 0 16px 16px 16px;
+  background-color: white;
 }
 
-.snapshot .status,
-.checkpoint .status {
-  margin: 10px 0;
+.header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  margin: 0 -16px;
+  padding: 8px 16px;
+  border-bottom: 1px solid grey;
+  z-index: 1;
 }
 
 h1 {
   font-size: 1.5rem;
   margin: 8px 0;
+}
+
+.snapshot .status,
+.checkpoint .status {
+  margin: 10px 0;
 }
 
 .snapshot ul {
@@ -119,6 +130,10 @@ h1 {
 .checkpoint.preview {
   max-height: 200px;
   overflow: hidden;
+}
+
+.checkpoint .images {
+  margin-top:16px;
 }
 
 .checkpoint .images img {

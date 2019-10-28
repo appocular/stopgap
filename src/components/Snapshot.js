@@ -7,8 +7,10 @@ const Snapshot = () => {
   const snapshot = state.snapshot
   return (
     <div className="snapshot">
-      <h1>{snapshot.id}</h1>
-      <div className="status">Status: {snapshot.status}, {snapshot.run_status}</div>
+      <div className="header">
+        <h1>{snapshot.id}</h1>
+        <div claassName="status">Status: {snapshot.status}, {snapshot.run_status}</div>
+      </div>
       <ul>
         {Object.values(snapshot.checkpoints).map((checkpoint) => (
           <li key={checkpoint.self}>

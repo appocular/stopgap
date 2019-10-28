@@ -29,13 +29,15 @@ const Checkpoint = () => {
 
   return (
     <div className={classes.join(' ')}>
-      <h1>{state.snapshot.id} / {checkpoint.name}</h1>
-      <div className="status">Status: {checkpoint.status}{suffix}</div>
-      <CheckpointMeta meta={checkpoint.meta}/>
-      <div className="actions">
-        {checkpoint.actions && checkpoint.actions.approve ? <button className="approve" onClick={actions.approveCurrentCheckpoint}>Approve</button> : null}
-        {checkpoint.actions && checkpoint.actions.reject ? <button className="reject" onClick={actions.rejectCurrentCheckpoint}>Reject</button> : null}
-        {checkpoint.actions && checkpoint.actions.ignore ? <button className="ignore" onClick={actions.ignoreCurrentCheckpoint}>Ignore</button> : null}
+      <div className="header">
+    <h1>{state.snapshot.id} / {checkpoint.name}</h1>
+    <div className="status">Status: {checkpoint.status}{suffix}</div>
+    <CheckpointMeta meta={checkpoint.meta}/>
+    <div className="actions">
+    {checkpoint.actions && checkpoint.actions.approve ? <button className="approve" onClick={actions.approveCurrentCheckpoint}>Approve</button> : null}
+    {checkpoint.actions && checkpoint.actions.reject ? <button className="reject" onClick={actions.rejectCurrentCheckpoint}>Reject</button> : null}
+    {checkpoint.actions && checkpoint.actions.ignore ? <button className="ignore" onClick={actions.ignoreCurrentCheckpoint}>Ignore</button> : null}
+    </div>
       </div>
       <div className={'images images-' + numImages}>
         {checkpoint.image_url ? <img className="new" alt="" src={checkpoint.image_url}/> : null}
