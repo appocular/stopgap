@@ -24,6 +24,15 @@ h1 {
   margin: 10px 0;
 }
 
+.snapshot .baseline-info {
+  font-size: .8rem;
+  color: grey;
+}
+
+.snapshot .baseline-info a {
+  color: grey;
+}
+
 .snapshot ul {
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );

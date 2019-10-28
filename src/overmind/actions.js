@@ -1,13 +1,21 @@
 
 export const loadSnapshot = async ({ state, actions, effects }, snapshotId) => {
-  state.snapshot = null
   const snapshot = await effects.getSnapshotById(snapshotId)
   if (snapshot) {
     actions.setSnapshot(snapshot)
+    if (snapshot.baseline_url) {
+      actions.loadBaseline(snapshot.baseline_url)
+    } else {
+      state.baseline = null
+    }
   }
   else {
     actions.setError('Error loading snapshot.')
   }
+}
+
+export const loadBaseline = async ({state, effects}, snapshotUrl) => {
+  state.baseline = await effects.getSnapshotByUrl(snapshotUrl)
 }
 
 export const showMessage = ({state}) => {

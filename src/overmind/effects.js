@@ -15,6 +15,10 @@ export const getSnapshotById = (snapshotId) => {
   return Appocular.getSnapshotById(snapshotId)
 }
 
+export const getSnapshotByUrl = (snapshotUrl) => {
+  return Appocular.get(snapshotUrl)
+}
+
 export const checkpointAction = (checkpoint, action) => {
   return Appocular.checkpointAction(checkpoint, action)
 }
