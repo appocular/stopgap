@@ -144,33 +144,37 @@ h1 {
   opacity: 0.5;
 }
 
+.image .caption {
+  margin: 4px 0;
+}
+
 .checkpoint .images.images-2 {
   display: grid;
-  grid-template-columns: auto auto
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 8px;
 }
 
 .checkpoint .images.images-3 {
   display: grid;
   grid-template-columns: repeat( 3, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   grid-gap: 8px;
 }
 
-.checkpoint .images img {
-  transition: opacity .1s ease-in-out;
+.checkpoint .images.images-3 .baseline,
+.checkpoint .images.images-3 .diff {
+  grid-row: 1;
+  grid-column: 2;
 }
 
-.checkpoint.status-approved .images img.baseline {
-  opacity: 0.5;
+.checkpoint.diff-status-identical .diff {
+  display: none;
 }
 
-.checkpoint.status-rejected .images img.new,
-.checkpoint.status-ignored .images img.new {
-  opacity: 0.5;
+.checkpoint .images.images-3 .diff {
+  animation: pulse 2s infinite;
 }
 
-.checkpoint.deleted img:hover,
-.checkpoint.status-approved .images img.baseline:hover,
-.checkpoint.status-rejected .images img.new:hover,
-.checkpoint.status-ignored .images img.new:hover {
-  opacity: 1;
+.checkpoint .images.images-3 .diff .caption {
+  opacity: 0;
 }

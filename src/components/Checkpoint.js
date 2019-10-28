@@ -1,6 +1,7 @@
 import React from 'react';
 import { useOvermind } from '../overmind';
 import CheckpointMeta from './CheckpointMeta';
+import Image from './Image';
 
 const Checkpoint = () => {
   const { state, actions } = useOvermind()
@@ -40,9 +41,9 @@ const Checkpoint = () => {
     </div>
       </div>
       <div className={'images images-' + numImages}>
-        {checkpoint.image_url ? <img className="new" alt="" src={checkpoint.image_url}/> : null}
-        {checkpoint.baseline_url ? <img className="baseline" alt="" src={checkpoint.baseline_url}/> : null}
-        {checkpoint.diff_url ? <img className="diff" alt="" src={checkpoint.diff_url}/> : null}
+        {checkpoint.image_url ? <Image title="Checkpoint" className="new" src={checkpoint.image_url}/> : null}
+        {checkpoint.baseline_url ? <Image title="Baseline" className="baseline" src={checkpoint.baseline_url}/> : null}
+        {checkpoint.diff_url ? <Image title="Diff" className="diff" src={checkpoint.diff_url}/> : null}
       </div>
     </div>
   )

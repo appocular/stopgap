@@ -9,7 +9,7 @@ const Snapshot = () => {
     <div className="snapshot">
       <div className="header">
         <h1>{snapshot.id}</h1>
-        <div claassName="status">Status: {snapshot.status}, {snapshot.run_status}</div>
+        <div className="status">Status: {snapshot.status}, {snapshot.run_status}</div>
       </div>
       <ul>
         {Object.values(snapshot.checkpoints).map((checkpoint) => (
