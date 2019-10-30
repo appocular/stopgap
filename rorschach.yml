@@ -1,8 +1,7 @@
 webdriver_url: http://localhost:4444/wd/hub
 base_url: http://localhost:3000/
 defaults:
-  browser_height: 800
-  browser_width: 1280
+  browser_size: 1280x800
   # Selenium might wait for document.loaded, but React renders quickly
   # and then dynamically loads things, so we wait a bit to give it
   # time to talk to assessor and starting to fetch images.
@@ -13,7 +12,16 @@ defaults:
     return (Array.from(document.images).find(function (image) {
       return !image.complete
     }) === undefined)
-steps:
+  css:
+    killPulse: |
+      * {
+        animation: none !important;
+      }
+    stopHeader: |
+      .header {
+        position: static;
+      }
+checkpoints:
   Frontpage: /
   "Approved baseline": /test-baseline
   "Approved baseline checkpoint": /test-baseline/frontpage
