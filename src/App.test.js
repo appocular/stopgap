@@ -47,7 +47,7 @@ describe('App', () => {
       actions.setCurrentCheckpoint('checkpoint-id')
     })
 
-    expect(queryByText("snapshot id / checkpoint id")).toBeInTheDocument()
+    expect(queryByText("/ checkpoint id")).toBeInTheDocument()
   })
 
   it('renders error message', async () => {
