@@ -12,7 +12,7 @@ const Checkpoint = () => {
     'diff-status-' + checkpoint.diff_status
   ]
 
-  if (checkpoint.diff_status ==  'different') {
+  if (checkpoint.diff_status ===  'different') {
     if (!checkpoint.image_url) {
       suffix = ', deleted'
       classes.push('deleted')

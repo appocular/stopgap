@@ -4,7 +4,7 @@ const CheckpointMeta = ({meta}) => {
   let metaList = []
   if (meta) {
     Object.keys(meta).map(name => {
-      metaList.push(name + ": " + meta[name])
+      return metaList.push(name + ": " + meta[name])
     })
   }
 
