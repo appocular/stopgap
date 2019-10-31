@@ -83,8 +83,8 @@ export const setSnapshot = ({state}, snapshot) => {
     map[size][checkpoint.slug] = checkpoint
     return map
   }, {})
-  snapshot.checkpoints = Object.values(grouped).reduce((map, checkpoints) => {
-    map = {...map, ...checkpoints}
+  snapshot.checkpoints = Object.keys(grouped).sort().reduce((map, key) => {
+    map = {...map, ...grouped[key]}
     return map
   }, {})
   state.snapshot = snapshot
