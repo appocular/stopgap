@@ -21,7 +21,26 @@ describe('Checkpoint', () => {
       actions.setCurrentCheckpoint('uno')
     })
 
-    expect(queryByText('Snapshot id / Checkpoint name')).toBeInTheDocument()
+    expect(queryByText('Snapshot id')).toBeInTheDocument()
+    expect(queryByText('/ Checkpoint name')).toBeInTheDocument()
+  });
+
+  it('links to the snapshot', () => {
+    const { queryByText, overmind } = renderWithOvermind(<Checkpoint/>, (actions) => {
+      actions.setSnapshot({
+        id: 'snapshot-id',
+        checkpoints: [
+          {
+            id: 1,
+            slug: 'uno',
+            name: 'Checkpoint name',
+            meta: {"browser_size": "800x600", "something": "else"}
+          }
+        ]})
+      actions.setCurrentCheckpoint('uno')
+    })
+
+    expect(queryByText('snapshot-id').getAttribute('href')).toEqual('/snapshot-id')
   });
 
   it('shows the checkpoint image', () => {

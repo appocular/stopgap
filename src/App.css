@@ -19,6 +19,10 @@ h1 {
   margin: 8px 0;
 }
 
+a {
+  color: grey;
+}
+
 .snapshot .status,
 .checkpoint .status {
   margin: 10px 0;
@@ -26,10 +30,6 @@ h1 {
 
 .snapshot .baseline-info {
   font-size: .8rem;
-  color: grey;
-}
-
-.snapshot .baseline-info a {
   color: grey;
 }
 
