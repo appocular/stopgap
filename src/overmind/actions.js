@@ -42,25 +42,35 @@ export const showCheckpoint = async ({ state, actions }, params) => {
   }
 }
 
-export const approveCurrentCheckpoint = async ({state, effects}) => {
-  effects.checkpointAction(state.getCurrentCheckpoint, 'approve')
-  const snapshotId = state.snapshot.id
-  state.snapshot = null
-  effects.router.open('/' + snapshotId)
+export const approveCurrentCheckpoint = async ({state, actions, effects}) => {
+  await effects.checkpointAction(state.getCurrentCheckpoint, 'approve')
+  actions.gotoNextUnknownCheckpoint()
 }
 
-export const rejectCurrentCheckpoint = async ({state, effects}) => {
-  effects.checkpointAction(state.getCurrentCheckpoint, 'reject')
-  const snapshotId = state.snapshot.id
-  state.snapshot = null
-  effects.router.open('/' + snapshotId)
+export const rejectCurrentCheckpoint = async ({state, actions, effects}) => {
+  await effects.checkpointAction(state.getCurrentCheckpoint, 'reject')
+  actions.gotoNextUnknownCheckpoint()
 }
 
-export const ignoreCurrentCheckpoint = async ({state, effects}) => {
-  effects.checkpointAction(state.getCurrentCheckpoint, 'ignore')
-  const snapshotId = state.snapshot.id
-  state.snapshot = null
-  effects.router.open('/' + snapshotId)
+export const ignoreCurrentCheckpoint = async ({state, actions, effects}) => {
+  await effects.checkpointAction(state.getCurrentCheckpoint, 'ignore')
+  actions.gotoNextUnknownCheckpoint()
+}
+
+export const gotoNextUnknownCheckpoint = async ({state, actions, effects}) => {
+  const slugs = Object.keys(state.snapshot.checkpoints)
+  const index = slugs.indexOf(state.currentCheckpoint)
+  const next = slugs.slice(index + 1).find((slug) => {
+    return state.snapshot.checkpoints[slug].status === 'unknown'
+  })
+
+  if (next) {
+    effects.router.open('/' + state.snapshot.id + '/' + next)
+  } else {
+    // Refresh snapshot before going back.
+    await actions.loadSnapshot(state.snapshot.id)
+    effects.router.open('/' + state.snapshot.id)
+  }
 }
 
 export const setSnapshot = ({state}, snapshot) => {

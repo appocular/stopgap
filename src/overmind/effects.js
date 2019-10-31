@@ -11,14 +11,14 @@ export const router = {
   open: (url) => page.show(url)
 }
 
-export const getSnapshotById = (snapshotId) => {
+export const getSnapshotById = async (snapshotId) => {
   return Appocular.getSnapshotById(snapshotId)
 }
 
-export const getSnapshotByUrl = (snapshotUrl) => {
+export const getSnapshotByUrl = async (snapshotUrl) => {
   return Appocular.get(snapshotUrl)
 }
 
-export const checkpointAction = (checkpoint, action) => {
+export const checkpointAction = async (checkpoint, action) => {
   return Appocular.checkpointAction(checkpoint, action)
 }
