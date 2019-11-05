@@ -5,7 +5,7 @@ defaults:
   # Selenium might wait for document.loaded, but React renders quickly
   # and then dynamically loads things, so we wait a bit to give it
   # time to talk to assessor and starting to fetch images.
-  wait: 2
+  wait: 5
   # stitch_delay: 1
   # Wait for images to be fully loaded before talking screenshot.
   wait_script: |
