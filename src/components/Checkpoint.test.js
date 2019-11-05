@@ -129,19 +129,21 @@ describe('Checkpoint', () => {
             image_url: "the/image_url",
             baseline_url: "the/baseline_url",
             diff_url: "the/diff_url",
-            status: "passed"
+            image_status: "available",
+            approval_status: "approved"
           }
         ]})
       actions.setCurrentCheckpoint('uno')
     })
 
-    expect(queryByText('Status: passed')).toBeInTheDocument()
+    expect(queryByText('Status: approved')).toBeInTheDocument()
   })
 
   it('shows the checkpoint new/deleted status', () => {
     var { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
+        run_status: 'done',
         checkpoints: [
           {
             name: "Checkpoint name",
@@ -150,18 +152,19 @@ describe('Checkpoint', () => {
             image_url: "the/image_url",
             baseline_url: "",
             diff_url: "the/diff_url",
-            status: "passed",
+            approval_status: "approved",
             diff_status: 'different'
           }
         ]})
       actions.setCurrentCheckpoint('uno')
     })
 
-    expect(queryByText('Status: passed, new')).toBeInTheDocument()
+    expect(queryByText('Status: approved, new')).toBeInTheDocument()
 
     var { container, queryByText } = renderWithOvermind(<Checkpoint/>, (actions) => {
       actions.setSnapshot({
         id: 'Snapshot id',
+        run_status: 'done',
         checkpoints: [
           {
             name: "Checkpoint name",
@@ -170,7 +173,8 @@ describe('Checkpoint', () => {
             image_url: "",
             baseline_url: "the/baseline_url",
             diff_url: "the/diff_url",
-            status: "passed",
+            image_status: "available",
+            approval_status: "approved",
             diff_status: 'different'
           }
 
@@ -178,7 +182,7 @@ describe('Checkpoint', () => {
       actions.setCurrentCheckpoint('duo')
     })
 
-    expect(queryByText('Status: passed, deleted')).toBeInTheDocument()
+    expect(queryByText('Status: approved, deleted')).toBeInTheDocument()
   })
 
   it('shows the checkpoint meta data', () => {
