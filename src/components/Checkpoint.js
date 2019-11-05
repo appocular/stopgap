@@ -6,13 +6,18 @@ import Image from './Image';
 const Checkpoint = () => {
   const { state, actions } = useOvermind()
   const checkpoint = state.getCurrentCheckpoint
+  const snapshot = state.snapshot
+
   let suffix, classes = [
     'checkpoint',
-    'status-' + checkpoint.status,
-    'diff-status-' + checkpoint.diff_status
+    'approval-status-' + checkpoint.approval_status,
+    'diff-status-' + checkpoint.diff_status,
+    'run-status-' + snapshot.run_status
   ]
 
-  if (checkpoint.diff_status ===  'different') {
+  const running = snapshot.run_status !== 'done'
+
+  if (!running && checkpoint.diff_status ===  'different') {
     if (!checkpoint.image_url) {
       suffix = ', deleted'
       classes.push('deleted')
@@ -28,11 +33,19 @@ const Checkpoint = () => {
     return acc;
   }, 0)
 
+  let status = checkpoint.approval_status
+
+  if (checkpoint.image_status !== 'available') {
+    if (running) {
+      status = checkpoint.image_status
+    }
+  }
+
   return (
     <div className={classes.join(' ')}>
       <div className="header">
         <h1><a href={'/' + state.snapshot.id}>{state.snapshot.id}</a> / {checkpoint.name}</h1>
-        <div className="status">Status: {checkpoint.status}{suffix}</div>
+        <div className="status">Status: {status}{suffix}</div>
         <CheckpointMeta meta={checkpoint.meta}/>
         <div className="actions">
           {checkpoint.actions && checkpoint.actions.approve ? <button className="approve" onClick={actions.approveCurrentCheckpoint}>Approve</button> : null}

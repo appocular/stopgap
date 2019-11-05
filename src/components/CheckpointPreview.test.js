@@ -12,10 +12,10 @@ describe('CheckpointPreview', () => {
       id: 1,
       name: 'Checkpoint name',
     }
-    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     expect(queryByText('Checkpoint name')).toBeInTheDocument()
-  });
+  })
 
   it('shows the checkpoint image and diff in preview', () => {
     // If there's no diff, only the image should be shown.
@@ -24,7 +24,7 @@ describe('CheckpointPreview', () => {
       name: 'Checkpoint name',
       image_url: 'the/image_url'
     }
-    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     let imgs = container.getElementsByTagName('img')
     expect(imgs).toHaveLength(1)
@@ -39,7 +39,7 @@ describe('CheckpointPreview', () => {
       image_url: 'the/image_url',
       diff_url: 'the/diff_url'
     }
-    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     imgs = container.getElementsByTagName('img')
     expect(imgs).toHaveLength(2)
@@ -48,17 +48,28 @@ describe('CheckpointPreview', () => {
     expect(imgs[1]).toHaveClass('overlay')
   })
 
-  it('marks new images', () => {
+  it('marks new images when done', () => {
     const data = {
       id: 1,
       name: 'Checkpoint name',
       image_url: 'something',
       diff_status: 'different'
     }
-    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     expect(queryByText('Checkpoint name (new)')).toBeInTheDocument()
-  });
+
+    let imgs = container.getElementsByTagName('img')
+    expect(imgs).toHaveLength(1)
+    // Check that the image is shown.
+    expect(imgs[0].getAttribute('src')).toEqual('something')
+
+    cleanup()
+
+    var { queryByText }  = renderWithOvermind(<CheckpointPreview checkpoint={data} running={true}/>)
+
+    expect(queryByText('Checkpoint name (new)')).not.toBeInTheDocument()
+  })
 
   it('marks deleted images', () => {
     const data = {
@@ -67,7 +78,7 @@ describe('CheckpointPreview', () => {
       baseline_url: 'something',
       diff_status: 'different'
     }
-    const { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     expect(queryByText('Checkpoint name (deleted)')).toBeInTheDocument()
 
@@ -75,7 +86,13 @@ describe('CheckpointPreview', () => {
     expect(imgs).toHaveLength(1)
     // Check that the baseline image is shown.
     expect(imgs[0].getAttribute('src')).toEqual('something')
-  });
+
+    cleanup()
+
+    var { queryByText }  = renderWithOvermind(<CheckpointPreview checkpoint={data} running={true}/>)
+
+    expect(queryByText('Checkpoint name (deleted)')).not.toBeInTheDocument()
+  })
 
   it("do not mark new/deleted images when there's no diff status", () => {
     let data = {
@@ -83,7 +100,7 @@ describe('CheckpointPreview', () => {
       name: 'Checkpoint name',
       image_url: 'something',
     }
-    var { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    var { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     expect(queryByText('Checkpoint name')).toBeInTheDocument()
 
@@ -93,10 +110,10 @@ describe('CheckpointPreview', () => {
       baseline_url: 'something',
       diff_status: 'different'
     }
-    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    var { container, queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     expect(queryByText('Checkpoint name (deleted)')).toBeInTheDocument()
-  });
+  })
 
   it('shows metadata', () => {
     const data = {
@@ -104,8 +121,8 @@ describe('CheckpointPreview', () => {
       name: 'Checkpoint name',
       meta: {"browser_size": "800x600", "something": "else"}
     }
-    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data}/>)
+    const { queryByText } = renderWithOvermind(<CheckpointPreview checkpoint={data} running={false}/>)
 
     expect(queryByText('browser_size: 800x600, something: else')).toBeInTheDocument()
   })
-});
+})

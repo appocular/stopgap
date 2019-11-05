@@ -1,16 +1,17 @@
 import React from 'react';
 import CheckpointMeta from './CheckpointMeta';
 
-const CheckpointPreview = ({checkpoint, preview}) => {
+const CheckpointPreview = ({checkpoint, running}) => {
   let suffix = '',
       image = checkpoint.image_url ? checkpoint.image_url : checkpoint.baseline_url,
       classes = [
         'checkpoint',
         'preview',
-        'status-' + checkpoint.status,
-        'diff-status-' + checkpoint.diff_status
+        'approval-status-' + checkpoint.approval_status,
+        'diff-status-' + checkpoint.diff_status,
+        'run-status-' + (running ? 'pending' : 'done')
       ]
-  if (checkpoint.diff_status ===  'different') {
+  if (!running && checkpoint.diff_status ===  'different') {
     if (!checkpoint.image_url) {
       suffix = ' (deleted)'
       classes.push('deleted')

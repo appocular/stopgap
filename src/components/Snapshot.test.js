@@ -36,17 +36,32 @@ describe('Snapshot', () => {
     expect(queryByText('image 2')).toBeInTheDocument()
   });
 
-  it('shows status and run status', () => {
+  it('shows status', () => {
     const { queryByText, debug } = renderWithOvermind(<Snapshot/>, (actions) => {
       actions.setSnapshot({
         id: 'snapshot id',
         status: 'passed',
+        processing_status: 'done',
         run_status: 'done',
         checkpoints: []
       })
     })
 
-    expect(queryByText('Status: passed, done')).toBeInTheDocument()
+    expect(queryByText('Status: passed')).toBeInTheDocument()
+  });
+
+  it('shows processing and run status when not done', () => {
+    const { queryByText, debug } = renderWithOvermind(<Snapshot/>, (actions) => {
+      actions.setSnapshot({
+        id: 'snapshot id',
+        status: 'passed',
+        processing_status: 'pending',
+        run_status: 'pending',
+        checkpoints: []
+      })
+    })
+
+    expect(queryByText('Status: passed, needs review, running')).toBeInTheDocument()
   });
 
 });
