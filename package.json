@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "overmind": "^19.2.0",
+    "overmind": "^20.0.0",
     "overmind-devtools": "^21.0.0",
     "overmind-react": "^21.0.0",
     "page": "^1.11.5",
