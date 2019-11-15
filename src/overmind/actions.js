@@ -61,7 +61,7 @@ export const gotoNextUnknownCheckpoint = async ({state, actions, effects}) => {
   const slugs = Object.keys(state.snapshot.checkpoints)
   const index = slugs.indexOf(state.currentCheckpoint)
   const next = slugs.slice(index + 1).find((slug) => {
-    return state.snapshot.checkpoints[slug].status === 'unknown'
+    return state.snapshot.checkpoints[slug].approval_status === 'unknown'
   })
 
   if (next) {
