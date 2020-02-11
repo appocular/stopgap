@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "overmind": "^22.0.3",
-    "overmind-devtools": "^23.1.1",
+    "overmind-devtools": "^23.1.2",
     "overmind-react": "^23.0.3",
     "page": "^1.11.5",
     "react": "^16.12.0",
