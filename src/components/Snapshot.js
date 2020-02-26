@@ -3,6 +3,7 @@ import CheckpointPreview from './CheckpointPreview'
 import BaselineInfo from './BaselineInfo'
 import { useOvermind } from '../overmind'
 import { statusString } from '../utils/misc.js'
+import BugReportButton from './BugReportButton'
 
 const Snapshot = () => {
   const { state } = useOvermind()
@@ -12,6 +13,7 @@ const Snapshot = () => {
     <div className="snapshot">
       <div className="header">
         <h1>{snapshot.id}</h1>
+        <BugReportButton/>
         <div className="status">Status: {statusString(snapshot)}</div>
         {state.baseline ? <BaselineInfo baseline={state.baseline}/> : null}
       </div>

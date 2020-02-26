@@ -11,7 +11,51 @@ body {
   margin: 0 -16px;
   padding: 8px 16px;
   border-bottom: 1px solid grey;
+  /* Need to raise z-index, else previews on snapshot overlaps. */
   z-index: 1;
+}
+
+/* And we need this to allow the modal to overlap the header. */
+.ReactModalPortal {
+  position: relative;
+  z-index: 1;
+}
+
+.bugreport-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+}
+
+.bugreport-form {
+  width: 500px;
+  margin: auto;
+  border: 2px solid black;
+  background-color: white;
+  padding: 30px;
+}
+
+.bugreport-form label,
+.bugreport-form p {
+  display: block;
+  margin: 30px 0 15px 0;
+}
+
+.bugreport-form input,
+.bugreport-form textarea {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.bugreport-form textarea {
+  resize: vertical;
+}
+
+.bugreport-form button {
+  margin: 15px 0;
 }
 
 h1 {
@@ -96,6 +140,18 @@ a {
   background-color: transparent;
   border: 1px solid black;
   padding: 4px 8px;
+}
+
+button.bugreport {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid black;
+  padding: 4px 8px;
+}
+
+/* This needs better positioning, but it'll do for now. */
+.header > button.bugreport {
+  float: right;
 }
 
 .checkpoint .actions button.approve {

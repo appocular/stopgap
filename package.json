@@ -9,6 +9,7 @@
     "page": "^1.11.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-modal": "^3.11.1",
     "react-scripts": "^3.4.0"
   },
   "scripts": {

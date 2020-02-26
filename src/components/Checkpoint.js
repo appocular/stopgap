@@ -2,6 +2,7 @@ import React from 'react';
 import { useOvermind } from '../overmind';
 import CheckpointMeta from './CheckpointMeta';
 import Image from './Image';
+import BugReportButton from './BugReportButton';
 
 const Checkpoint = () => {
   const { state, actions } = useOvermind()
@@ -45,6 +46,7 @@ const Checkpoint = () => {
     <div className={classes.join(' ')}>
       <div className="header">
         <h1><a href={'/' + state.snapshot.id}>{state.snapshot.id}</a> / {checkpoint.name}</h1>
+        <BugReportButton/>
         <div className="status">Status: {status}{suffix}</div>
         <CheckpointMeta meta={checkpoint.meta}/>
         <div className="actions">
