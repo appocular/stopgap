@@ -20,6 +20,7 @@ const BugReportButton = ({meta}) => {
                         <textarea id="description" rows="10" value={state.bugreport.description} onChange={(event) => actions.bugreport.setDescription(event.target.value)}/>
                         <p>This will save a snapshot of the current page and state, so you can move on.</p>
                         <button className="bugreport" onClick={actions.bugreport.submitBug}>Submit bugreport</button>
+                        <button className="bugreport" onClick={actions.bugreport.toggleModal}>Cancel</button>
                       </>
                    );
 
