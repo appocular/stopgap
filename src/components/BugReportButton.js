@@ -2,9 +2,6 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { useOvermind } from '../overmind';
 
-// Maybe move to App.js?
-ReactModal.setAppElement('#root');
-
 const BugReportButton = ({meta}) => {
   const { state, actions } = useOvermind()
 
