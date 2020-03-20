@@ -7,7 +7,7 @@
     "overmind-devtools": "^24.0.1",
     "overmind-react": "^24.0.1",
     "page": "^1.11.5",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-dom": "^16.13.0",
     "react-modal": "^3.11.1",
     "react-scripts": "^3.4.0"
