@@ -5,7 +5,7 @@
   "dependencies": {
     "overmind": "^23.1.0",
     "overmind-devtools": "^24.1.0",
-    "overmind-react": "^24.1.0",
+    "overmind-react": "^25.0.0",
     "page": "^1.11.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
