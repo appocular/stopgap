@@ -9,7 +9,7 @@
     "page": "^1.11.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-modal": "^3.11.1",
+    "react-modal": "^3.12.1",
     "react-scripts": "^3.4.0"
   },
   "scripts": {
