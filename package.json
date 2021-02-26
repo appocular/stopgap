@@ -8,7 +8,7 @@
     "overmind-react": "^25.1.1",
     "page": "^1.11.6",
     "react": "^16.14.0",
-    "react-dom": "^16.13.1",
+    "react-dom": "^16.14.0",
     "react-modal": "^3.12.1",
     "react-scripts": "^4.0.3"
   },
